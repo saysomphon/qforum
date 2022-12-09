@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:qfoumn/authen_method.dart';
@@ -10,6 +11,9 @@ class GoogleSigninScreen extends StatefulWidget {
 }
 
 class _GoogleSigninScreenState extends State<GoogleSigninScreen> {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +30,20 @@ class _GoogleSigninScreenState extends State<GoogleSigninScreen> {
               ),
             ),
             InkWell(
-              onTap: () => AuthenMethod().signInWithGoogle(),
+              onTap: () =>
+                  AuthenMethod().signInWithGoogle().then((value) async {
+                await users
+                    .add({
+                      'email': value.user!.email,
+                      'google_id': value.user!.uid,
+                    })
+                    .then(
+                      (value) => print("User Added"),
+                    )
+                    .catchError(
+                      (error) => print("Failed to add user: $error"),
+                    );
+              }),
               child: Center(
                 child: Container(
                   width: 200,

@@ -1,12 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/firebase_options.dart';
-import 'package:qfoumn/screens/home/home_screen.dart';
-import 'package:qfoumn/screens/post/post_screen.dart';
-import 'package:qfoumn/theme.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:qfoumn/google_screen.dart';
-import 'firebase_options.dart';
+import 'package:qfoumn/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,9 +20,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
       theme: theme(),
-      home: PostScreen(),
+      home: const GoogleSigninScreen(),
     );
   }
 }
