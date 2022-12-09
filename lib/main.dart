@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/firebase_options.dart';
 import 'package:qfoumn/screens/home/home_screen.dart';
+import 'package:qfoumn/screens/post/post_screen.dart';
+import 'package:qfoumn/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,10 +22,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomeScreen(),
+      theme: theme(),
+      home: PostScreen(),
     );
   }
 }
