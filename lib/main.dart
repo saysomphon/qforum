@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/firebase_options.dart';
-import 'package:qfoumn/screens/home/home_screen.dart';
-import 'package:qfoumn/screens/post/post_screen.dart';
+// import 'package:qfoumn/screens/post/post_screen.dart';
+import 'package:qfoumn/screens/comment/comment_screen.dart';
 import 'package:qfoumn/theme.dart';
 
 void main() async {
@@ -15,7 +15,6 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: theme(),
-      home: PostScreen(),
+      home: const Comment(),
     );
   }
 }

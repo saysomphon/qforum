@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
-
   @override
   State<PostScreen> createState() => _PostScreenState();
 }
@@ -12,7 +11,7 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Feed Back"),
+        title: const Text("Feed Back"),
         centerTitle: true,
       ),
     );
