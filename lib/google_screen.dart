@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:qfoumn/authen_method.dart';
 
 class GoogleSigninScreen extends StatefulWidget {
@@ -12,11 +13,18 @@ class _GoogleSigninScreenState extends State<GoogleSigninScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple,
+      backgroundColor: const Color.fromARGB(255, 25, 97, 156),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              constraints: const BoxConstraints(maxWidth: 250, minWidth: 200),
+              child: SvgPicture.asset(
+                'assets/svgs/Frame.svg',
+                semanticsLabel: 'Acme Logo',
+              ),
+            ),
             InkWell(
               onTap: () => AuthenMethod().signInWithGoogle(),
               child: Center(
@@ -27,10 +35,11 @@ class _GoogleSigninScreenState extends State<GoogleSigninScreen> {
                     borderRadius: BorderRadius.circular(30),
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.black.withOpacity(0.3),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 3)),
+                        color: Colors.black.withOpacity(0.3),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
+                      ),
                     ],
                   ),
                   padding: const EdgeInsets.symmetric(
@@ -39,10 +48,14 @@ class _GoogleSigninScreenState extends State<GoogleSigninScreen> {
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.facebook),
-                      SizedBox(width: 5),
-                      Text("Signin With Google"),
+                    children: [
+                      SvgPicture.asset(
+                        'assets/svgs/Google.svg',
+                        height: 30,
+                        semanticsLabel: 'Google Logo',
+                      ),
+                      const SizedBox(width: 5),
+                      const Text("Signin With Google"),
                     ],
                   ),
                 ),

@@ -3,16 +3,19 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenMethod {
   // Google Signin
-  Future<void> signInWithGoogle() async {
+  Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
 
-    GoogleAuthProvider.credential(
+    final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   // Logout
