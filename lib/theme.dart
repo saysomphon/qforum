@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:qfoumn/constants/colors.dart';
 
 MaterialColor buildMaterialColor(Color color) {
@@ -27,6 +28,34 @@ MaterialColor buildMaterialColor(Color color) {
 
 ThemeData theme() {
   return ThemeData(
-    primarySwatch: buildMaterialColor(ColorsConstant.primaryColor),
+      scaffoldBackgroundColor: ColorsConstant.scaffFoldBackgroundColor,
+      primarySwatch: buildMaterialColor(ColorsConstant.primaryColor),
+      textTheme: textTheme(),
+      appBarTheme: appBarTheme());
+}
+
+AppBarTheme appBarTheme() {
+  return const AppBarTheme(
+    toolbarHeight: 90,
+    backgroundColor: Colors.transparent,
+    iconTheme: IconThemeData(color: Colors.white),
+    elevation: 0,
+    systemOverlayStyle: SystemUiOverlayStyle.light,
+    foregroundColor: Colors.white,
+  );
+}
+
+TextTheme textTheme() {
+  return const TextTheme(
+    headlineLarge: TextStyle(fontSize: 34, letterSpacing: 0),
+    headlineMedium: TextStyle(fontSize: 16, letterSpacing: 0),
+    bodySmall: TextStyle(fontSize: 16, letterSpacing: 0),
+    labelSmall: TextStyle(fontSize: 14, letterSpacing: 0),
+    labelMedium:
+        TextStyle(fontSize: 60, letterSpacing: 0, fontWeight: FontWeight.w600),
+    titleLarge:
+        TextStyle(fontSize: 40, letterSpacing: 0, fontWeight: FontWeight.w600),
+    titleSmall:
+        TextStyle(fontSize: 18, letterSpacing: 0, fontWeight: FontWeight.w600),
   );
 }
