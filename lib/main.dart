@@ -1,27 +1,148 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:qfoumn/firebase_options.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+void main() async {
+  noticeBackGround();
+  setNotifications();
+  requestPermissionNotification();
+  initInfo();
   runApp(const MyApp());
+}
+
+Future<void> onBackgroundMessage(RemoteMessage message) async {
+  await Firebase.initializeApp();
+}
+
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+final streamCtlr = StreamController<String>.broadcast();
+final titleCtlr = StreamController<String>.broadcast();
+final bodyCtlr = StreamController<String>.broadcast();
+
+setNotifications() {
+  try {
+    Firebase.initializeApp();
+    FirebaseMessaging.onBackgroundMessage(onBackgroundMessage);
+    FirebaseMessaging.onMessage.listen(
+      (message) async {
+        if (message.data.containsKey('data')) {
+          streamCtlr.sink.add(message.data['data']);
+        }
+        if (message.data.containsKey('notification')) {
+          streamCtlr.sink.add(message.data['notification']);
+        }
+        titleCtlr.sink.add(message.notification!.title!);
+        bodyCtlr.sink.add(message.notification!.body!);
+
+        BigTextStyleInformation bigTextStyleInformation =
+            BigTextStyleInformation(
+          message.notification!.body.toString(),
+          htmlFormatBigText: true,
+          contentTitle: message.notification!.title.toString(),
+          htmlFormatContent: true,
+        );
+        AndroidNotificationDetails androidPlatformChannelSpecifics =
+            AndroidNotificationDetails(
+          'channelId',
+          'channelName',
+          importance: Importance.high,
+          styleInformation: bigTextStyleInformation,
+          priority: Priority.high,
+          playSound: true,
+          // sound: RawResourceAndroidNotificationSound(''),
+        );
+        NotificationDetails platformChannelSpecifics =
+            NotificationDetails(android: androidPlatformChannelSpecifics);
+        await flutterLocalNotificationsPlugin.show(
+            0,
+            message.notification?.title,
+            message.notification?.body,
+            platformChannelSpecifics,
+            payload: message.data['title']);
+      },
+    );
+  } catch (e) {
+    // print(e);
+  }
+}
+
+void requestPermissionNotification() async {
+  try {
+    await firebaseMessaging.getNotificationSettings();
+    NotificationSettings settings = await firebaseMessaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      // print('User granted permission');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      // print('User granted provisional permission');
+    } else {
+      // print('User declined or has not accepted permission');
+    }
+  } catch (e) {
+    // print(e);
+  }
+}
+
+Future<void> initInfo() async {
+  try {
+    var androidInnitialize =
+        const AndroidInitializationSettings("@mipmap/ic_launcher");
+    var iOSInnitialize = const DarwinInitializationSettings();
+    var initializationSettings = InitializationSettings(
+        android: androidInnitialize, iOS: iOSInnitialize);
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+    );
+  } catch (e) {
+    // print(e);
+  }
+}
+
+// funtion get token firebase to send noticfication
+Future noticeBackGround() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  const storage = FlutterSecureStorage();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseMessaging.instance.getInitialMessage();
+  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+
+  firebaseMessaging.getToken().then((token) {
+    if (token == null) {
+      FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+        storage.write(key: "noticToken", value: fcmToken);
+      }).onError((err) {});
+    } else {
+      // print(token);
+      storage.write(key: "noticToken", value: token);
+    }
+  });
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -31,15 +152,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -52,47 +164,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
@@ -109,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
