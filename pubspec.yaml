@@ -41,6 +41,10 @@ dependencies:
   flutter_bloc: ^8.0.1
   cloud_firestore: ^4.2.0
   get: ^4.6.5
+  flutter_svg: ^1.1.6
+  fluttertoast: ^8.1.1
+  firebase_auth: ^4.2.0
+  google_sign_in: ^5.4.2
 
 dev_dependencies:
   flutter_test:
