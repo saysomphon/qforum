@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
@@ -13,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var dataUser = FirebaseAuth.instance.currentUser;
   final Stream<QuerySnapshot> _forumTypeStream =
       FirebaseFirestore.instance.collection('forum_type').snapshots();
   int _selectedIndex = 0;
@@ -26,7 +28,20 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: const [NotificationIconButton()],
+        leading: const Padding(
+          padding: EdgeInsets.all(16),
+          child: Icon(
+            Icons.person,
+            size: 40,
+          ),
+        ),
+        title: Text(dataUser?.displayName ?? "Unfonud user name"),
+        centerTitle: true,
+        actions: const [
+          NotificationIconButton(
+            paddingAll: 16,
+          )
+        ],
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _forumTypeStream,
@@ -56,21 +71,26 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Setting',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        backgroundColor: ColorsConstant.primaryColor,
-        selectedItemColor: Colors.white,
-        onTap: _onItemTapped,
+      bottomNavigationBar: SizedBox(
+        height: 90,
+        child: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Setting',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          backgroundColor: ColorsConstant.primaryColor,
+          selectedFontSize: 16,
+          selectedItemColor: Colors.white,
+          onTap: _onItemTapped,
+          selectedLabelStyle: const TextStyle(height: 2),
+        ),
       ),
     );
   }

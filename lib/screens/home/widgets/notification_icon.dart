@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
 class NotificationIconButton extends StatelessWidget {
-  const NotificationIconButton({super.key});
+  final double paddingAll;
+  const NotificationIconButton({super.key, required this.paddingAll});
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: () {},
-        iconSize: 30,
-        icon: const Icon(Icons.notifications_outlined));
+    return Container(
+      padding: EdgeInsets.all(paddingAll),
+      child: IconButton(
+          splashRadius: 20,
+          onPressed: () {},
+          iconSize: 40,
+          icon: const Icon(Icons.notifications_outlined)),
+    );
   }
 }
