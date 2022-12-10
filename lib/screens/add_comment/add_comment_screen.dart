@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
@@ -18,6 +19,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
   final contentController = TextEditingController();
   bool loading = false;
   bool isAnonymous = false;
+  var getUser = FirebaseAuth.instance.currentUser;
 
   CollectionReference comment =
       FirebaseFirestore.instance.collection('comment');
@@ -42,7 +44,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
     });
     return comment.add({
       'created_at': DateTime.now().toString(),
-      'email': 'ting@gmail.com',
+      'email': getUser!.email ?? "",
       'is_anonymous': isAnonymous,
       'message': contentController.text,
       'post_id': widget.postId
