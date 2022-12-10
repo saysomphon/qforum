@@ -8,6 +8,6 @@ class NotificationIconButton extends StatelessWidget {
     return IconButton(
         onPressed: () {},
         iconSize: 30,
-        icon: Icon(Icons.notifications_outlined));
+        icon: const Icon(Icons.notifications_outlined));
   }
 }

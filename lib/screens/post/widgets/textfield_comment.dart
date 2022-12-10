@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import '../../../constants/colors.dart';
 
@@ -16,14 +15,14 @@ class TextFieldComment extends StatelessWidget {
       height: 50,
       width: MediaQuery.of(context).size.width * 1,
       color: ColorsConstant.darkPrimaryColor,
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: TextField(
         controller: commentController,
-        scrollPadding: EdgeInsets.only(bottom: 40),
-        style: TextStyle(color: Colors.white),
+        scrollPadding: const EdgeInsets.only(bottom: 40),
+        style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
             hintText: "Comment",
-            enabledBorder: UnderlineInputBorder(
+            enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.blue),
             ),
             focusedBorder: UnderlineInputBorder(
@@ -34,7 +33,7 @@ class TextFieldComment extends StatelessWidget {
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
                     onTap: onPressEnter,
-                    child: Icon(
+                    child: const Icon(
                       Icons.send,
                       color: Colors.white,
                     )))),

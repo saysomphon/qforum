@@ -44,7 +44,7 @@ class _PostScreenState extends State<PostScreen> {
                     ),
                     ...List.generate(
                         10,
-                        (index) => CardComment(
+                        (index) => const CardComment(
                             comment: "ຂ້ອຍມັກກິນນໍ້າປັ່ນໝາກໄມ້",
                             author: 'ໄຊສົມພອນ ວັນນະແສງ',
                             sentTime: 'Time: 5s ago  ',
@@ -58,7 +58,7 @@ class _PostScreenState extends State<PostScreen> {
                 bottom: 0,
                 child: Obx(() => TextFieldComment(
                     onPressEnter: () {
-                      print(postForumController.commentController.value.text);
+                      // print(postForumController.commentController.value.text);
                     },
                     commentController:
                         postForumController.commentController.value)))

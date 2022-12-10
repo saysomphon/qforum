@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:qfoumn/constants/colors.dart';
-import 'package:qfoumn/constants/padding.dart';
 
 class CardForumType extends StatelessWidget {
   const CardForumType({super.key, required this.title});

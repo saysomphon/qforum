@@ -8,7 +8,7 @@ class Comment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _controllerContent = TextEditingController();
+    final TextEditingController controllerContent = TextEditingController();
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -29,7 +29,7 @@ class Comment extends StatelessWidget {
                 children: [
                   ExpandTextField(
                     contentSize: 16,
-                    textController: _controllerContent,
+                    textController: controllerContent,
                     hintText: 'Enter your comment',
                   ),
                   const SizedBox(height: 16),
@@ -38,7 +38,7 @@ class Comment extends StatelessWidget {
                       child: SendButton(
                         tilte: 'Post',
                         press: () {
-                          print(_controllerContent.text);
+                          // print(controllerContent.text);
                         },
                       ))
                 ],

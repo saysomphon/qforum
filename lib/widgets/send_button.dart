@@ -12,7 +12,7 @@ class SendButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 107, 181, 218),
+            color: const Color.fromARGB(255, 107, 181, 218),
             borderRadius: BorderRadius.circular(8)),
         child: Row(
           mainAxisSize: MainAxisSize.min,
