@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qfoumn/constants/colors.dart';
+import 'package:qfoumn/screens/post/post_screen.dart';
 
 class CardPostTitle extends StatelessWidget {
   const CardPostTitle(
@@ -17,7 +18,14 @@ class CardPostTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PostScreen(),
+          ),
+        );
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

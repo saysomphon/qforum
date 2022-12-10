@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:qfoumn/constants/colors.dart';
-import 'package:qfoumn/constants/padding.dart';
 import 'package:qfoumn/screens/post_title/post_title_screen.dart';
 
 class CardForumType extends StatelessWidget {
-  const CardForumType({super.key, required this.title});
+  const CardForumType({super.key, required this.title, required this.id});
   final String title;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,8 @@ class CardForumType extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => PostTitleScreen(
-              forumTypeId: "test",
+              forumTypeId: id,
+              title: title,
             ),
           ),
         );

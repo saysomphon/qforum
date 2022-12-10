@@ -51,7 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     document.data()! as Map<String, dynamic>;
                 return Padding(
                   padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                  child: CardForumType(title: data['name']),
+                  child: CardForumType(
+                    title: data['name'],
+                    id: document.id,
+                  ),
                 );
               }).toList(),
             ),

@@ -3,24 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:qfoumn/screens/post_title/widgets/card_post_title.dart';
 
 class PostTitleScreen extends StatefulWidget {
-  const PostTitleScreen({super.key, required this.forumTypeId});
+  const PostTitleScreen(
+      {super.key, required this.forumTypeId, required this.title});
   final String forumTypeId;
+  final String title;
 
   @override
   State<PostTitleScreen> createState() => _PostTitleScreenState();
 }
 
 class _PostTitleScreenState extends State<PostTitleScreen> {
-  final Stream<QuerySnapshot> _postStream = FirebaseFirestore.instance
-      .collection("post")
-      .where("forum_type_id==SQSDm9DM4Gvu1b6aImmS")
-      .snapshots();
-
   @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot> _postStream = FirebaseFirestore.instance
+        .collection("post")
+        .where("forum_type_id", isEqualTo: widget.forumTypeId)
+        .snapshots();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Feedback"),
+        title: Text(widget.title),
         centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(
