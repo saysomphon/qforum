@@ -17,6 +17,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
   String errorMessage = "";
   final contentController = TextEditingController();
   bool loading = false;
+  bool isAnonymous = false;
 
   CollectionReference comment =
       FirebaseFirestore.instance.collection('comment');
@@ -40,9 +41,9 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
       loading = true;
     });
     return comment.add({
-      'created_at': '10/12/2022',
+      'created_at': DateTime.now().toString(),
       'email': 'ting@gmail.com',
-      'is_anonymous': false,
+      'is_anonymous': isAnonymous,
       'message': contentController.text,
       'post_id': widget.postId
     }).then((value) {
@@ -65,7 +66,28 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: const Text("Comment"),
+          centerTitle: true,
+          actions: [
+            Row(
+              children: [
+                Image.asset('assets/images/incognito.png', scale: 1.6),
+                Switch(
+                  // This bool value toggles the switch.
+                  value: isAnonymous,
+                  activeColor: Colors.white,
+                  onChanged: (bool value) {
+                    // This is called when the user toggles the switch.
+                    setState(() {
+                      isAnonymous = value;
+                    });
+                  },
+                ),
+              ],
+            )
+          ],
+        ),
         body: Padding(
           padding: const EdgeInsets.all(PaddingConstant.scaffoldPadding),
           child: SingleChildScrollView(
@@ -75,7 +97,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                 TextField(
                   controller: contentController,
                   keyboardType: TextInputType.multiline,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   maxLines: 10,
                   decoration: InputDecoration(
                     hintText: 'Write comment here',
@@ -97,7 +119,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                       alignment: Alignment.centerRight,
                       child: Text(
                         errorMessage,
-                        style: TextStyle(color: Colors.red),
+                        style: const TextStyle(color: Colors.red),
                       ),
                     ),
                   ),

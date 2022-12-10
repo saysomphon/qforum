@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants/colors.dart';
+import '../../../utils/date_format.dart';
 
 class CardComment extends StatelessWidget {
   const CardComment(
@@ -48,7 +49,8 @@ class CardComment extends StatelessWidget {
                 RichText(
                     text: TextSpan(children: [
                   TextSpan(
-                    text: '$sentTime  ',
+                    text: DateTimeFormatConvert.convertDateFormat(
+                        datetime: sentTime, format: "dd/MM/yyyy hh:mm"),
                     style: TextStyle(color: ColorsConstant.textLightGrey),
                   ),
                 ]))

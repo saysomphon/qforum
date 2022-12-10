@@ -82,7 +82,7 @@ class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: SendButton(
-                      tilte: 'Add',
+                      tilte: 'Post',
                       press: () => postTitleController.addPostTitle(
                           context: context,
                           email: 'email@gmail.com',
