@@ -3,13 +3,13 @@ import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/widgets/expand_text_field.dart';
 import 'package:qfoumn/widgets/send_button.dart';
 
-class Comment extends StatefulWidget {
-  const Comment({super.key});
+class PostComment extends StatefulWidget {
+  const PostComment({super.key});
   @override
-  State<Comment> createState() => _CommentState();
+  State<PostComment> createState() => _PostCommentState();
 }
 
-class _CommentState extends State<Comment> {
+class _PostCommentState extends State<PostComment> {
   final TextEditingController _controllerTitle = TextEditingController();
   final TextEditingController _controllerContent = TextEditingController();
   @override
@@ -22,65 +22,67 @@ class _CommentState extends State<Comment> {
         backgroundColor: ColorsConstant.primaryColor,
         appBar: AppBar(
           elevation: 0,
-          title: const Text("Comment"),
+          title: const Text("Post Comment"),
           leading: const Icon(Icons.arrow_back_ios_new_rounded),
           centerTitle: true,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(12),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Title:",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Title:",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                ExpandTextField(
-                  contentSize: 20,
-                  textController: _controllerTitle,
-                  hintText: 'Enter your title',
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Content:",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+                  const SizedBox(
+                    height: 16,
                   ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                ExpandTextField(
-                  contentSize: 16,
-                  textController: _controllerContent,
-                  hintText: 'Enter your content',
-                ),
-                const SizedBox(height: 16),
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: SendButton(
-                      tilte: 'Post',
-                      press: () {
-                        print(_controllerTitle.text);
-                        print(_controllerContent.text);
-                      },
-                    ))
-              ],
+                  ExpandTextField(
+                    contentSize: 20,
+                    textController: _controllerTitle,
+                    hintText: 'Enter your title',
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Content:",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  ExpandTextField(
+                    contentSize: 16,
+                    textController: _controllerContent,
+                    hintText: 'Enter your content',
+                  ),
+                  const SizedBox(height: 16),
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: SendButton(
+                        tilte: 'Post',
+                        press: () {
+                          print(_controllerTitle.text);
+                          print(_controllerContent.text);
+                        },
+                      ))
+                ],
+              ),
             ),
           ),
         ),

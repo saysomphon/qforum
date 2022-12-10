@@ -19,7 +19,11 @@ class ExpandTextField extends StatelessWidget {
           color: ColorsConstant.darkPrimaryColor,
           borderRadius: BorderRadius.circular(8)),
       child: TextField(
-        style: TextStyle(fontSize: contentSize, color: Colors.white),
+        style: TextStyle(
+            fontSize: contentSize,
+            color: Colors.white,
+            letterSpacing: 1,
+            height: 2),
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(16),
             border: InputBorder.none,
