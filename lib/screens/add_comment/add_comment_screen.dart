@@ -41,7 +41,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
       loading = true;
     });
     return comment.add({
-      'created_at': DateTime.now().toString(),
+      'created_at': DateTime.now(),
       'email': 'ting@gmail.com',
       'is_anonymous': is_anonymous,
       'message': commentController.text,
