@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
 import 'package:qfoumn/screens/home/widgets/card_forum_type.dart';
-import 'package:qfoumn/screens/home/widgets/notification_icon.dart';
+import 'package:qfoumn/screens/home/widgets/logout_button.dart';
+import 'package:qfoumn/screens/sign_in/sign_in_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,20 +15,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
   final Stream<QuerySnapshot> _forumTypeStream =
       FirebaseFirestore.instance.collection('forum_type').snapshots();
   int _selectedIndex = 0;
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
+  void logOut() async {
+    await auth.signOut();
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const SignInScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [NotificationIconButton()],
+        actions: [
+          LogoutButton(
+            onPress: logOut,
+          )
+        ],
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _forumTypeStream,

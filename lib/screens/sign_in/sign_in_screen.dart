@@ -5,18 +5,18 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:qfoumn/controllers/user.dart';
 import 'package:qfoumn/model/user.dart';
-import 'package:qfoumn/screens/google_sign_in/auth_method.dart';
+import 'package:qfoumn/screens/sign_in/auth_method.dart';
 import 'package:qfoumn/screens/home/home_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class GoogleSigninScreen extends StatefulWidget {
-  const GoogleSigninScreen({super.key});
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  State<GoogleSigninScreen> createState() => _GoogleSigninScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _GoogleSigninScreenState extends State<GoogleSigninScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   final userController = Get.put(UserController());

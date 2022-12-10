@@ -28,7 +28,7 @@ MaterialColor buildMaterialColor(Color color) {
 
 ThemeData theme() {
   return ThemeData(
-      scaffoldBackgroundColor: ColorsConstant.scaffFoldBackgroundColor,
+      scaffoldBackgroundColor: ColorsConstant.backgroundColor,
       primarySwatch: buildMaterialColor(ColorsConstant.primaryColor),
       textTheme: textTheme(),
       appBarTheme: appBarTheme());
