@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qfoumn/authen_method.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -12,7 +13,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0),
+        preferredSize: const Size.fromHeight(70.0),
         child: AppBar(
           leading: const Icon(Icons.arrow_back_ios),
           centerTitle: true,
@@ -40,7 +41,12 @@ class _SettingScreenState extends State<SettingScreen> {
             SettingList(
               icon: Icons.logout,
               title: 'Logout',
-              onTap: () {},
+              onTap: () {
+                AuthenMethod()
+                    .logout()
+                    .then((value) => print("logout"))
+                    .catchError((e) => print(e));
+              },
             ),
           ],
         ),
