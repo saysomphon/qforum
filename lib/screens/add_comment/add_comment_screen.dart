@@ -15,15 +15,14 @@ class AddCommentScreen extends StatefulWidget {
 
 class _AddCommentScreenState extends State<AddCommentScreen> {
   String errorMessage = "";
-  final commentController = TextEditingController();
+  final contentController = TextEditingController();
   bool loading = false;
-  bool isAnonymous = true;
 
   CollectionReference comment =
       FirebaseFirestore.instance.collection('comment');
 
   bool formValid() {
-    if (commentController.text.isEmpty) {
+    if (contentController.text.isEmpty) {
       setState(() {
         errorMessage = "Please enter comment";
       });
@@ -41,10 +40,10 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
       loading = true;
     });
     return comment.add({
-      'created_at': DateTime.now().toString(),
+      'created_at': '10/12/2022',
       'email': 'ting@gmail.com',
-      'is_anonymous': isAnonymous,
-      'message': commentController.text,
+      'is_anonymous': false,
+      'message': contentController.text,
       'post_id': widget.postId
     }).then((value) {
       setState(() {
@@ -66,28 +65,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Comment"),
-          centerTitle: true,
-          actions: [
-            Row(
-              children: [
-                Image.asset('assets/images/incognito.png', scale: 1.6),
-                Switch(
-                  // This bool value toggles the switch.
-                  value: isAnonymous,
-                  activeColor: Colors.white,
-                  onChanged: (bool value) {
-                    // This is called when the user toggles the switch.
-                    setState(() {
-                      isAnonymous = value;
-                    });
-                  },
-                ),
-              ],
-            )
-          ],
-        ),
+        appBar: AppBar(),
         body: Padding(
           padding: const EdgeInsets.all(PaddingConstant.scaffoldPadding),
           child: SingleChildScrollView(
@@ -95,9 +73,9 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextField(
-                  controller: commentController,
+                  controller: contentController,
                   keyboardType: TextInputType.multiline,
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white),
                   maxLines: 10,
                   decoration: InputDecoration(
                     hintText: 'Write comment here',
@@ -119,7 +97,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                       alignment: Alignment.centerRight,
                       child: Text(
                         errorMessage,
-                        style: const TextStyle(color: Colors.red),
+                        style: TextStyle(color: Colors.red),
                       ),
                     ),
                   ),
