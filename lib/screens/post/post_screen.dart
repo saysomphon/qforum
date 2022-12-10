@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:qfoumn/constants/colors.dart';
+import 'package:get/get.dart';
+import 'package:qfoumn/controllers/post_forum/post_controller.dart';
+import 'package:qfoumn/screens/post/widgets/card_comment.dart';
+import 'package:qfoumn/screens/post/widgets/header.dart';
+import 'package:qfoumn/screens/post/widgets/textfield_comment.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
@@ -9,7 +13,7 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
-  TextEditingController commentController = TextEditingController();
+  PostForumController postForumController = Get.put(PostForumController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +29,13 @@ class _PostScreenState extends State<PostScreen> {
         body: Stack(
           children: [
             Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                   bottom: 62, left: 12.0, right: 12.0, top: 12.0),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildHeader(),
+                    const TitleContainer(),
                     const Padding(
                       padding: EdgeInsets.only(top: 15, bottom: 10, left: 5),
                       child: Text(
@@ -39,125 +43,26 @@ class _PostScreenState extends State<PostScreen> {
                         style: TextStyle(color: Colors.white, fontSize: 25),
                       ),
                     ),
-                    ...List.generate(10, (index) => buildCardComment())
+                    ...List.generate(
+                        10,
+                        (index) => CardComment(
+                            comment: "ຂ້ອຍມັກກິນນໍ້າປັ່ນໝາກໄມ້",
+                            author: 'ໄຊສົມພອນ ວັນນະແສງ',
+                            sentTime: 'Time: 5s ago  ',
+                            isSent: true,
+                            isUserComment: true))
                   ],
                 ),
               ),
             ),
-            Positioned(bottom: 0, child: buildTextField())
-          ],
-        ),
-      ),
-    );
-  }
-
-  Container buildTextField() {
-    return Container(
-      height: 50,
-      width: MediaQuery.of(context).size.width * 1,
-      color: ColorsConstant.darkPrimaryColor,
-      padding: EdgeInsets.all(8.0),
-      child: TextField(
-        controller: commentController,
-        scrollPadding: EdgeInsets.only(bottom: 40),
-        style: TextStyle(color: Colors.white),
-        decoration: InputDecoration(
-            hintText: "Comment",
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.blue),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: ColorsConstant.textLightGrey),
-            ),
-            hintStyle: TextStyle(color: ColorsConstant.textLightGrey),
-            suffixIcon: MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                    onTap: () {},
-                    child: Icon(
-                      Icons.send,
-                      color: Colors.white,
-                    )))),
-      ),
-    );
-  }
-
-  Container buildCardComment() {
-    return Container(
-      margin: EdgeInsets.only(top: 5, bottom: 5),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: ColorsConstant.primaryColor,
-        border: Border.all(color: ColorsConstant.borderColor, width: 1),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(
-            left: 16.0, right: 16.0, top: 16.0, bottom: 8.0),
-        child: Column(
-          children: [
-            const Text(
-              'ຖ້າຖືກໃຈຢ່າລື່ມຝາກກົດໄລ້ກົດຕິດຕາມຂ້ອຍແນ່ເດີ...ຮັບຮອງວ່າຈະນຳຄວາມຮູ້ດີໆມາຝາກທຸກໆທ່ານແນ່ນອນ :)',
-              style: TextStyle(color: Colors.white),
-            ),
-            const SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'User: ໄຊສົມພອນ ວັນນະແສງ',
-                  style: TextStyle(color: ColorsConstant.textLightGrey),
-                ),
-                Text(
-                  'Time: 5s ago',
-                  style: TextStyle(color: ColorsConstant.textLightGrey),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Container buildHeader() {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: ColorsConstant.darkPrimaryColor,
-        border: Border.all(color: ColorsConstant.borderColor, width: 1),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "ທ່ານມັກກິນຫຍັງ?",
-              style: TextStyle(
-                  color: ColorsConstant.textYellowColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              'User: ໄຊສົມພອນ ວັນນະແສງ',
-              style: TextStyle(color: ColorsConstant.textLightGrey),
-            ),
-            const SizedBox(height: 15),
-            const Text(
-              'ສະຖານະການປະເທດທີ່ຊ່ວຍເຫຼືອ ແລະ ພາບອັບເດດຊ່ວງວັນທີ:24-25/07/2018 , ນໍ້າຖ້ວມອັດຕະປື ເປັນເຫດການທີ່ຮຸ່ນແຮງທີ່ສຸດ ຈົນລັດຖະບານປະກາດເປັນ “ໄພພິບັດແຫ່ງຊາດ” ໃນວັນທີ 24/07/2018 , ຕໍ່ໜ້າສະພາບດັ່ງກ່າວໄດ້ມີມິດປະເທດ ບ້ານພີ່ເມືອງນ້ອງ ແລະ ປະເທດເພື່ອນມິດຍຸດທະສາດ ຂອງສປປລາວ ,ຢືນມືເຂົ້າຊ່ວຍເຫຼືອຢ່າງຮີບດ່ວນທີ່ສຸດ, ດັ່ງທີ່ພວກເຮົາຈະເຫັນໄດ້ຈາກຂ່າວທີ່ນໍາສະເໜີໄປກ່ອນໜ້າ ແລະ ຮູບພາບດ່ານລຸ່ມນີ້',
-              style: TextStyle(color: Colors.white),
-            ),
-            const SizedBox(height: 10),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Text(
-                'Time: 5s ao',
-                style: TextStyle(color: ColorsConstant.textLightGrey),
-              ),
-            )
+            Positioned(
+                bottom: 0,
+                child: Obx(() => TextFieldComment(
+                    onPressEnter: () {
+                      print(postForumController.commentController.value.text);
+                    },
+                    commentController:
+                        postForumController.commentController.value)))
           ],
         ),
       ),
