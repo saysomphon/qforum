@@ -13,7 +13,7 @@ class AppRoute {
       case initialRoute:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => SignInCubit(),
+            create: (context) => SignInCubit()..signedInCheck(),
             child: const SignInScreen(),
           ),
         );
