@@ -1,7 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
-import 'package:qfoumn/constants/colors.dart';
+import 'package:qfoumn/core/constants/colors.dart';
 
 MaterialColor buildMaterialColor(Color color) {
   List strengths = <double>[.05];
