@@ -4,6 +4,8 @@ import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/model/post.dart';
 import 'package:qfoumn/screens/add_post_title/add_post_title.dart';
 import 'package:qfoumn/screens/post_title/widgets/card_post_title.dart';
+import 'package:intl/intl.dart';
+import 'package:qfoumn/utils/date_format.dart';
 
 class PostTitleScreen extends StatefulWidget {
   const PostTitleScreen(
@@ -52,8 +54,10 @@ class _PostTitleScreenState extends State<PostTitleScreen> {
                   forumType: widget.title,
                   post: PostModel(
                       id: document.id,
-                      createdAt: data['created_at'],
-                      description: data['description'],
+                      createdAt: DateTimeFormatConvert.convertDateFormat(
+                          datetime: data['created_at'],
+                          format: 'dd/MM/yyyy hh:mm'),
+                      description: data['content'],
                       email: data['email'],
                       forumTypeId: data['forum_type_id'],
                       isAnonymous: data['is_anonymous'],
@@ -69,7 +73,10 @@ class _PostTitleScreenState extends State<PostTitleScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddPostTitleScreen(),
+              builder: (context) => AddPostTitleScreen(
+                forumId: widget.forumTypeId,
+                forumTitle: widget.title,
+              ),
             ),
           );
         },

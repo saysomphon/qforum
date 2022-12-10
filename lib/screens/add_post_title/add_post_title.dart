@@ -1,82 +1,77 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/instance_manager.dart';
 import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
+import 'package:qfoumn/controllers/post_title.dart';
+import 'package:qfoumn/controllers/user.dart';
 import 'package:qfoumn/widgets/send_button.dart';
 
 class AddPostTitleScreen extends StatefulWidget {
-  const AddPostTitleScreen({super.key});
+  const AddPostTitleScreen(
+      {super.key, required this.forumId, required this.forumTitle});
+
+  final String forumId;
+  final String forumTitle;
 
   @override
   State<AddPostTitleScreen> createState() => _AddPostTitleScreenState();
 }
 
 class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
-  String errorMessage = "";
-  final commentController = TextEditingController();
-  bool loading = false;
-
-  CollectionReference comment =
-      FirebaseFirestore.instance.collection('comment');
-
-  bool formValid() {
-    if (commentController.text.isEmpty) {
-      setState(() {
-        errorMessage = "Please enter comment";
-      });
-      return false;
-    }
-    setState(() {
-      errorMessage = "";
-    });
-    return true;
-  }
-
-  Future<void> addComment() {
-    // Call the user's CollectionReference to add a new user
-    setState(() {
-      loading = true;
-    });
-    return comment.add({
-      'created_at': '10/12/2022',
-      'email': 'ting@gmail.com',
-      'is_anonymous': false,
-      'message': commentController.text,
-      'post_id': ""
-    }).then((value) {
-      setState(() {
-        loading = false;
-      });
-      Navigator.pop(context);
-    }).catchError((error) {
-      setState(() {
-        errorMessage = "Something when wrong please try again later";
-      });
-      setState(() {
-        loading = false;
-      });
-    });
-  }
+  PostTitleController postTitleController = Get.put(PostTitleController());
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text(widget.forumTitle),
+          centerTitle: true,
+        ),
         body: Padding(
           padding: const EdgeInsets.all(PaddingConstant.scaffoldPadding),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Text(
+                  'Title',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 15),
                 TextField(
-                  controller: commentController,
+                  controller: postTitleController.titleController.value,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: 'Write title here',
+                    hintStyle: TextStyle(color: ColorsConstant.textLightGrey),
+                    border: InputBorder.none,
+                    fillColor: ColorsConstant.darkPrimaryColor,
+                    filled: true,
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Text(
+                  'Content',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 15),
+                TextField(
+                  controller: postTitleController.contentController.value,
                   keyboardType: TextInputType.multiline,
                   style: TextStyle(color: Colors.white),
                   maxLines: 10,
                   decoration: InputDecoration(
-                    hintText: 'Write comment here',
+                    hintText: 'Write content here',
                     hintStyle: TextStyle(color: ColorsConstant.textLightGrey),
                     border: InputBorder.none,
                     fillColor: ColorsConstant.darkPrimaryColor,
@@ -86,19 +81,26 @@ class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
                 const SizedBox(height: 20),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: SendButton(tilte: 'Send', press: addComment),
+                  child: SendButton(
+                      tilte: 'Add',
+                      press: () => postTitleController.addPostTitle(
+                          context: context,
+                          email: 'email@gmail.com',
+                          forumTypeId: widget.forumId,
+                          isAnonymous: false)),
                 ),
-                if (errorMessage.isNotEmpty)
-                  Padding(
+                Obx(
+                  () => Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        errorMessage,
+                        postTitleController.errorMessage.value,
                         style: TextStyle(color: Colors.red),
                       ),
                     ),
                   ),
+                )
               ],
             ),
           ),

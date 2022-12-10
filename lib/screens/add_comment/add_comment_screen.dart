@@ -15,14 +15,14 @@ class AddCommentScreen extends StatefulWidget {
 
 class _AddCommentScreenState extends State<AddCommentScreen> {
   String errorMessage = "";
-  final commentController = TextEditingController();
+  final contentController = TextEditingController();
   bool loading = false;
 
   CollectionReference comment =
       FirebaseFirestore.instance.collection('comment');
 
   bool formValid() {
-    if (commentController.text.isEmpty) {
+    if (contentController.text.isEmpty) {
       setState(() {
         errorMessage = "Please enter comment";
       });
@@ -43,7 +43,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
       'created_at': '10/12/2022',
       'email': 'ting@gmail.com',
       'is_anonymous': false,
-      'message': commentController.text,
+      'message': contentController.text,
       'post_id': widget.postId
     }).then((value) {
       setState(() {
@@ -73,7 +73,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextField(
-                  controller: commentController,
+                  controller: contentController,
                   keyboardType: TextInputType.multiline,
                   style: TextStyle(color: Colors.white),
                   maxLines: 10,
