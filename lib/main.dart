@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/firebase_options.dart';
+import 'package:qfoumn/screens/google_sign_in/google_sign_in.dart';
 import 'package:qfoumn/screens/home/home_screen.dart';
-import 'package:qfoumn/screens/post/post_screen.dart';
-import 'package:qfoumn/screens/post_title/post_title_screen.dart';
 import 'package:qfoumn/theme.dart';
 
 void main() async {
@@ -14,17 +15,31 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var isLogin = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
       theme: theme(),
-      home: HomeScreen(),
+      home: isLogin == null
+          ? const GoogleSigninScreen()
+          : isLogin != null
+              ? const HomeScreen()
+              : const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
+                ),
     );
   }
 }
