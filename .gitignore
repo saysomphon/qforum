@@ -24,3 +24,8 @@ doc/api/
 *.js_
 *.js.deps
 *.js.map
+*.g.dart
+*.config.dart
+*.lock
+.flutter-plugins
+.flutter-plugins-dependencies

@@ -1,12 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/firebase_options.dart';
-import 'package:qfoumn/google_screen.dart';
-import 'package:qfoumn/screens/home/home_screen.dart';
-import 'package:qfoumn/screens/loading/loading_screen.dart';
 import 'package:qfoumn/theme.dart';
+import 'package:no_context_navigation/no_context_navigation.dart';
+
+import 'core/routes/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,11 +31,10 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: theme(),
-      home: isLogin == null
-          ? const GoogleSigninScreen()
-          : isLogin != null
-              ? const HomeScreen()
-              : const LoadingScreen(),
+      //set up navigation
+      navigatorKey: NavigationService.navigationKey,
+      onGenerateRoute: (settings) => AppRoute.routeGenerate(settings),
+      initialRoute: AppRoute.initialRoute,
     );
   }
 }
