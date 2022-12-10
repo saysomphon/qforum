@@ -29,17 +29,17 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: const Text('Home Page'),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _usersStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return const Text('Something went wrong');
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
+            return const Text("Loading");
           }
 
           return Column(
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () async {
                     await addUser();
                   },
-                  child: Text("Create")),
+                  child: const Text("Create")),
               SizedBox(
                 height: 500,
                 child: ListView(
