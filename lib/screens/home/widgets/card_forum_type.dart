@@ -3,42 +3,49 @@ import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/screens/post_title/post_title_screen.dart';
 
 class CardForumType extends StatelessWidget {
-  const CardForumType({super.key, required this.title, required this.id});
+  const CardForumType(
+      {super.key, required this.title, required this.id, required this.icon});
   final String title;
   final String id;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PostTitleScreen(
-              forumTypeId: id,
-              title: title,
-            ),
+    void viewPostTitle() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PostTitleScreen(
+            forumTypeId: id,
+            title: title,
           ),
-        );
-      },
+        ),
+      );
+    }
+
+    return InkWell(
+      onTap: viewPostTitle,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
+          color: ColorsConstant.primaryColor,
+          borderRadius: BorderRadius.circular(20),
         ),
         padding:
-            const EdgeInsets.only(top: 32, bottom: 32, left: 16, right: 16),
+            const EdgeInsets.only(top: 20, bottom: 20, left: 16, right: 16),
         child: Row(
           children: [
             Icon(
-              Icons.feedback,
-              size: 50,
-              color: ColorsConstant.primaryColor,
+              icon,
+              size: 40,
+              color: ColorsConstant.secondaryColor,
             ),
             const SizedBox(width: 10),
             Text(
               title,
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: ColorsConstant.textColor),
             )
           ],
         ),

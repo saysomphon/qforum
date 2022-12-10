@@ -35,13 +35,13 @@ ThemeData theme() {
 }
 
 AppBarTheme appBarTheme() {
-  return const AppBarTheme(
+  return AppBarTheme(
     toolbarHeight: 90,
     backgroundColor: Colors.transparent,
-    iconTheme: IconThemeData(color: Colors.white),
+    iconTheme: IconThemeData(color: ColorsConstant.darkPrimaryColor),
     elevation: 0,
     systemOverlayStyle: SystemUiOverlayStyle.light,
-    foregroundColor: Colors.white,
+    foregroundColor: ColorsConstant.darkPrimaryColor,
   );
 }
 
