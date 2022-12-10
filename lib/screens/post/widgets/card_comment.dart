@@ -42,7 +42,7 @@ class CardComment extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 6),
-                  child: Text('User: $author',
+                  child: Text(isAnonymous ? 'User: Anonymous' : 'User: $author',
                       style: TextStyle(color: ColorsConstant.textLightGrey)),
                 ),
                 RichText(

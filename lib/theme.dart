@@ -54,7 +54,7 @@ TextTheme textTheme() {
     labelMedium:
         TextStyle(fontSize: 60, letterSpacing: 0, fontWeight: FontWeight.w600),
     titleLarge:
-        TextStyle(fontSize: 40, letterSpacing: 0, fontWeight: FontWeight.w600),
+        TextStyle(fontSize: 30, letterSpacing: 0, fontWeight: FontWeight.w600),
     titleSmall:
         TextStyle(fontSize: 18, letterSpacing: 0, fontWeight: FontWeight.w600),
   );
