@@ -23,12 +23,11 @@ MaterialColor buildMaterialColor(Color color) {
   }
   return MaterialColor(color.value, swatch);
 }
-
 // ======================================================================
 
 ThemeData theme() {
   return ThemeData(
-      scaffoldBackgroundColor: ColorsConstant.scaffFoldBackgroundColor,
+      scaffoldBackgroundColor: ColorsConstant.scaffoldBackgroundColor,
       primarySwatch: buildMaterialColor(ColorsConstant.primaryColor),
       textTheme: textTheme(),
       appBarTheme: appBarTheme());
