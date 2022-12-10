@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:qfoumn/constants/colors.dart';
 
 class ExpandTextField extends StatelessWidget {
   final TextEditingController textController;
@@ -13,28 +12,25 @@ class ExpandTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.white),
-          color: ColorsConstant.darkPrimaryColor,
-          borderRadius: BorderRadius.circular(8)),
-      child: TextField(
-        style: TextStyle(
-            fontSize: contentSize,
-            color: Colors.white,
-            letterSpacing: 1,
-            height: 2),
-        decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(16),
-            border: InputBorder.none,
-            hintText: hintText,
-            hintStyle: const TextStyle(color: Colors.white)),
-        autofocus: false,
-        // focusNode: _focusnode,
-        maxLines: null,
-        controller: textController,
-        keyboardType: TextInputType.text,
+    return TextField(
+      style: TextStyle(
+        fontSize: contentSize,
+        color: Colors.white,
       ),
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: const TextStyle(color: Colors.white),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(width: 2.0, color: Colors.grey),
+        ),
+      ),
+      maxLines: null,
+      cursorColor: Colors.white,
+      controller: textController,
     );
   }
 }
