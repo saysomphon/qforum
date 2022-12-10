@@ -23,12 +23,14 @@ class TextFieldComment extends StatelessWidget {
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
             hintText: "Comment",
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.blue),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: ColorsConstant.textLightGrey),
-            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16),
+            border: InputBorder.none,
+            // enabledBorder: UnderlineInputBorder(
+            //   borderSide: BorderSide(color: Colors.blue),
+            // ),
+            // focusedBorder: UnderlineInputBorder(
+            //   borderSide: BorderSide(color: ColorsConstant.textLightGrey),
+            // ),
             hintStyle: TextStyle(color: ColorsConstant.textLightGrey),
             suffixIcon: MouseRegion(
                 cursor: SystemMouseCursors.click,
