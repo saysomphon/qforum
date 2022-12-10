@@ -7,4 +7,5 @@ class ColorsConstant {
   static Color primaryColor = const Color(0xFF034481);
   static Color textYellowColor = const Color(0xFFFFCD05);
   static Color textLightGrey = const Color(0xFF999999);
+  static Color dividerColor = const Color(0xFF999999);
 }
