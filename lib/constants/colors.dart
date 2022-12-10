@@ -8,4 +8,5 @@ class ColorsConstant {
   static Color textYellowColor = const Color(0xFFFFCD05);
   static Color textLightGrey = const Color(0xFF999999);
   static Color dividerColor = const Color(0xFF999999);
+  static Color buttonSubmitColor = const Color.fromARGB(255, 107, 181, 218);
 }

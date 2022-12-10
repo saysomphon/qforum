@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:qfoumn/model/post.dart';
 
 import '../../../constants/colors.dart';
 
 class TitleContainer extends StatelessWidget {
-  const TitleContainer({super.key});
+  const TitleContainer({super.key, required this.post});
+
+  final PostModel post;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,7 @@ class TitleContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "ທ່ານມັກກິນຫຍັງ?",
+              post.title,
               style: TextStyle(
                   color: ColorsConstant.textYellowColor,
                   fontSize: 20,
@@ -28,19 +31,19 @@ class TitleContainer extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              'User: ໄຊສົມພອນ ວັນນະແສງ',
+              'User: ${post.email}',
               style: TextStyle(color: ColorsConstant.textLightGrey),
             ),
             const SizedBox(height: 15),
-            const Text(
-              'ສະຖານະການປະເທດທີ່ຊ່ວຍເຫຼືອ ແລະ ພາບອັບເດດຊ່ວງວັນທີ:24-25/07/2018 , ນໍ້າຖ້ວມອັດຕະປື ເປັນເຫດການທີ່ຮຸ່ນແຮງທີ່ສຸດ ຈົນລັດຖະບານປະກາດເປັນ “ໄພພິບັດແຫ່ງຊາດ” ໃນວັນທີ 24/07/2018 , ຕໍ່ໜ້າສະພາບດັ່ງກ່າວໄດ້ມີມິດປະເທດ ບ້ານພີ່ເມືອງນ້ອງ ແລະ ປະເທດເພື່ອນມິດຍຸດທະສາດ ຂອງສປປລາວ ,ຢືນມືເຂົ້າຊ່ວຍເຫຼືອຢ່າງຮີບດ່ວນທີ່ສຸດ, ດັ່ງທີ່ພວກເຮົາຈະເຫັນໄດ້ຈາກຂ່າວທີ່ນໍາສະເໜີໄປກ່ອນໜ້າ ແລະ ຮູບພາບດ່ານລຸ່ມນີ້',
+            Text(
+              post.description,
               style: TextStyle(color: Colors.white),
             ),
             const SizedBox(height: 10),
             Align(
               alignment: Alignment.bottomRight,
               child: Text(
-                'Time: 5s ao',
+                post.createdAt,
                 style: TextStyle(color: ColorsConstant.textLightGrey),
               ),
             )

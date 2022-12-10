@@ -8,13 +8,11 @@ class CardComment extends StatelessWidget {
       required this.comment,
       required this.author,
       required this.sentTime,
-      required this.isSent,
-      required this.isUserComment});
+      required this.isAnonymous});
   final String comment;
   final String author;
   final String sentTime;
-  final bool isSent;
-  final bool isUserComment;
+  final bool isAnonymous;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +20,7 @@ class CardComment extends StatelessWidget {
       margin: const EdgeInsets.only(top: 5, bottom: 5),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: isUserComment
+        color: isAnonymous
             ? ColorsConstant.darkPrimaryColor
             : ColorsConstant.primaryColor,
         border: Border.all(color: ColorsConstant.borderColor, width: 1),
@@ -53,16 +51,6 @@ class CardComment extends StatelessWidget {
                     text: '$sentTime  ',
                     style: TextStyle(color: ColorsConstant.textLightGrey),
                   ),
-                  WidgetSpan(
-                      child: isSent
-                          ? const Icon(
-                              Icons.check_circle,
-                              color: Colors.grey,
-                            )
-                          : const Icon(
-                              Icons.circle,
-                              color: Colors.grey,
-                            ))
                 ]))
               ],
             )

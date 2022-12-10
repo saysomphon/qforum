@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:qfoumn/constants/colors.dart';
+import 'package:qfoumn/model/post.dart';
 import 'package:qfoumn/screens/post/post_screen.dart';
 
 class CardPostTitle extends StatelessWidget {
-  const CardPostTitle(
-      {super.key,
-      required this.title,
-      required this.author,
-      required this.createdTime,
-      required this.isAnonymous});
+  const CardPostTitle({super.key, required this.post, required this.forumType});
 
-  final String title;
-  final String author;
-  final String createdTime;
-  final bool isAnonymous;
+  final PostModel post;
+  final String forumType;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +16,10 @@ class CardPostTitle extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PostScreen(),
+            builder: (context) => PostScreen(
+              post: post,
+              forumTitle: forumType,
+            ),
           ),
         );
       },
@@ -39,7 +36,7 @@ class CardPostTitle extends StatelessWidget {
                 SizedBox(
                   height: 50,
                   child: Text(
-                    title,
+                    post.title,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: const TextStyle(color: Colors.white, fontSize: 20),
@@ -51,14 +48,15 @@ class CardPostTitle extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 6),
-                      child: Text('User: ${isAnonymous ? 'anonymous' : author}',
+                      child: Text(
+                          'User: ${post.isAnonymous ? 'anonymous' : post.email}',
                           style:
                               TextStyle(color: ColorsConstant.textLightGrey)),
                     ),
                     RichText(
                         text: TextSpan(children: [
                       TextSpan(
-                        text: '$createdTime  ',
+                        text: '${post.createdAt}  ',
                         style: TextStyle(color: ColorsConstant.textLightGrey),
                       ),
                       WidgetSpan(

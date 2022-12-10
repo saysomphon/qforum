@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:qfoumn/model/post.dart';
 import 'package:qfoumn/screens/post_title/widgets/card_post_title.dart';
 
 class PostTitleScreen extends StatefulWidget {
@@ -46,10 +47,16 @@ class _PostTitleScreenState extends State<PostTitleScreen> {
               return Padding(
                 padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                 child: CardPostTitle(
-                    title: data['title'],
-                    author: data['email'],
-                    createdTime: data['created_at'],
-                    isAnonymous: data['is_anonymous']),
+                  forumType: widget.title,
+                  post: PostModel(
+                      id: document.id,
+                      createdAt: data['created_at'],
+                      description: data['description'],
+                      email: data['email'],
+                      forumTypeId: data['forum_type_id'],
+                      isAnonymous: data['is_anonymous'],
+                      title: data['title']),
+                ),
               );
             }).toList(),
           );

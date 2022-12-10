@@ -1,71 +1,109 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/controllers/post_forum/post_controller.dart';
+import 'package:qfoumn/model/post.dart';
+import 'package:qfoumn/screens/add_comment/add_comment_screen.dart';
 import 'package:qfoumn/screens/post/widgets/card_comment.dart';
 import 'package:qfoumn/screens/post/widgets/header.dart';
-import 'package:qfoumn/screens/post/widgets/textfield_comment.dart';
 
 class PostScreen extends StatefulWidget {
-  const PostScreen({super.key});
+  const PostScreen({super.key, required this.post, required this.forumTitle});
+
+  final PostModel post;
+  final String forumTitle;
 
   @override
   State<PostScreen> createState() => _PostScreenState();
 }
 
 class _PostScreenState extends State<PostScreen> {
-  PostForumController postForumController = Get.put(PostForumController());
-
   @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot> _commentStream = FirebaseFirestore.instance
+        .collection("comment")
+        .where("post_id", isEqualTo: widget.post.id)
+        .snapshots();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        // resizeToAvoidBottomInset: true,
-        resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          title: const Text("Feed Back"),
-          centerTitle: true,
-        ),
-        body: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  bottom: 62, left: 12.0, right: 12.0, top: 12.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const TitleContainer(),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 15, bottom: 10, left: 5),
-                      child: Text(
-                        'Comments',
-                        style: TextStyle(color: Colors.white, fontSize: 25),
-                      ),
+          // resizeToAvoidBottomInset: true,
+
+          appBar: AppBar(
+            title: Text(widget.forumTitle),
+            centerTitle: true,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(12),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TitleContainer(
+                    post: widget.post,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 15, bottom: 10, left: 5),
+                    child: Text(
+                      'Comments',
+                      style: TextStyle(color: Colors.white, fontSize: 25),
                     ),
-                    ...List.generate(
-                        10,
-                        (index) => CardComment(
-                            comment: "ຂ້ອຍມັກກິນນໍ້າປັ່ນໝາກໄມ້",
-                            author: 'ໄຊສົມພອນ ວັນນະແສງ',
-                            sentTime: 'Time: 5s ago  ',
-                            isSent: true,
-                            isUserComment: true))
-                  ],
-                ),
+                  ),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _commentStream,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return const Text('Something went wrong');
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        );
+                      }
+
+                      return Column(
+                        children: [
+                          ...snapshot.data!.docs
+                              .map((DocumentSnapshot document) {
+                            Map<String, dynamic> data =
+                                document.data()! as Map<String, dynamic>;
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                              child: CardComment(
+                                  comment: data['message'],
+                                  author: data['email'],
+                                  sentTime: data['created_at'],
+                                  isAnonymous: data['is_anonymous']),
+                            );
+                          }).toList()
+                        ],
+                      );
+                    },
+                  )
+                ],
               ),
             ),
-            Positioned(
-                bottom: 0,
-                child: Obx(() => TextFieldComment(
-                    onPressEnter: () {
-                      print(postForumController.commentController.value.text);
-                    },
-                    commentController:
-                        postForumController.commentController.value)))
-          ],
-        ),
-      ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      AddCommentScreen(postId: widget.post.id),
+                ),
+              );
+            },
+            backgroundColor: ColorsConstant.primaryColor,
+            child: const Icon(Icons.add),
+          )),
     );
   }
 }
