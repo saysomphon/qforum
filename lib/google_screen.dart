@@ -1,7 +1,10 @@
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:qfoumn/authen_method.dart';
+import 'package:qfoumn/screens/home/home_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class GoogleSigninScreen extends StatefulWidget {
   const GoogleSigninScreen({super.key});
@@ -13,6 +16,8 @@ class GoogleSigninScreen extends StatefulWidget {
 class _GoogleSigninScreenState extends State<GoogleSigninScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,20 +35,37 @@ class _GoogleSigninScreenState extends State<GoogleSigninScreen> {
               ),
             ),
             InkWell(
-              onTap: () =>
-                  AuthenMethod().signInWithGoogle().then((value) async {
-                await users
-                    .add({
+              onTap: () {
+                setState(() {
+                  isLoading = true;
+                });
+                AuthenMethod().signInWithGoogle().then(
+                  (value) async {
+                    await users.doc(value.user!.uid).set({
                       'email': value.user!.email,
                       'google_id': value.user!.uid,
-                    })
-                    .then(
-                      (value) => print("User Added"),
-                    )
-                    .catchError(
-                      (error) => print("Failed to add user: $error"),
+                    }).then(
+                      (value) {
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                              builder: (context) => const HomeScreen(),
+                            ),
+                            (Route<dynamic> route) => false);
+                      },
+                    ).catchError(
+                      (error) {
+                        setState(() {
+                          isLoading = false;
+                        });
+                        showToast(message: e);
+                      },
                     );
-              }),
+                  },
+                );
+              },
               child: Center(
                 child: Container(
                   width: 200,
@@ -66,13 +88,26 @@ class _GoogleSigninScreenState extends State<GoogleSigninScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SvgPicture.asset(
-                        'assets/svgs/Google.svg',
-                        height: 30,
-                        semanticsLabel: 'Google Logo',
+                      Container(
+                        child: isLoading == true
+                            ? const SizedBox(
+                                height: 30,
+                                width: 30,
+                                child: CircularProgressIndicator(),
+                              )
+                            : SvgPicture.asset(
+                                'assets/svgs/Google.svg',
+                                height: 30,
+                                semanticsLabel: 'Google Logo',
+                              ),
                       ),
                       const SizedBox(width: 5),
-                      const Text("Signin With Google"),
+                      const Text(
+                        "Signin With Google",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -83,4 +118,14 @@ class _GoogleSigninScreenState extends State<GoogleSigninScreen> {
       ),
     );
   }
+
+  void showToast({message}) => Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
 }
