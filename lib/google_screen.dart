@@ -2,7 +2,10 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:qfoumn/authen_method.dart';
+import 'package:qfoumn/controller/user.dart';
+import 'package:qfoumn/model/user.dart';
 import 'package:qfoumn/screens/home/home_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -16,6 +19,7 @@ class GoogleSigninScreen extends StatefulWidget {
 class _GoogleSigninScreenState extends State<GoogleSigninScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
+  final userController = Get.put(UserController());
 
   bool isLoading = false;
 
@@ -45,7 +49,10 @@ class _GoogleSigninScreenState extends State<GoogleSigninScreen> {
                       'email': value.user!.email,
                       'google_id': value.user!.uid,
                     }).then(
-                      (value) {
+                      (getValue) {
+                        userController.userData.value = UserModel(
+                            email: value.user?.email ?? '',
+                            googleId: value.user?.uid ?? '');
                         setState(() {
                           isLoading = false;
                         });

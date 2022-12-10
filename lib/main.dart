@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:qfoumn/controller/user.dart';
 import 'package:qfoumn/firebase_options.dart';
 import 'package:qfoumn/google_screen.dart';
 import 'package:qfoumn/screens/home/home_screen.dart';
@@ -13,6 +15,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Get.putAsync<UserController>(() async => UserController());
   runApp(const MyApp());
 }
 
