@@ -31,20 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           return Column(
             children: [
-              SizedBox(
-                height: 500,
-                child: ListView(
-                  children:
-                      snapshot.data!.docs.map((DocumentSnapshot document) {
-                    Map<String, dynamic> data =
-                        document.data()! as Map<String, dynamic>;
-                    return ListTile(
-                      title: Text(data['email']),
-                      subtitle: Text(data['google_id']),
-                    );
-                  }).toList(),
-                ),
-              ),
+              Text("Go to setting"),
             ],
           );
         },

@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:qfoumn/authen_method.dart';
 import 'package:qfoumn/screens/home/home_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:qfoumn/widgets/show_toast.dart';
 
 class GoogleSigninScreen extends StatefulWidget {
   const GoogleSigninScreen({super.key});
@@ -118,14 +119,4 @@ class _GoogleSigninScreenState extends State<GoogleSigninScreen> {
       ),
     );
   }
-
-  void showToast({message}) => Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
 }

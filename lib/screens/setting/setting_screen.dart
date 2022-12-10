@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qfoumn/authen_method.dart';
+import 'package:qfoumn/screens/google/google_screen.dart';
+import 'package:qfoumn/widgets/show_toast.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -44,8 +46,12 @@ class _SettingScreenState extends State<SettingScreen> {
               onTap: () {
                 AuthenMethod()
                     .logout()
-                    .then((value) => print("logout"))
-                    .catchError((e) => print(e));
+                    .then((value) => Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => const GoogleSigninScreen(),
+                        ),
+                        (Route<dynamic> route) => false))
+                    .catchError((e) => showToast(message: e));
               },
             ),
           ],
