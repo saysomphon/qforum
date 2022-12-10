@@ -9,21 +9,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('users').snapshots();
-
-  Future<void> addUser() {
-    // Call the user's CollectionReference to add a new user
-    return users
-        .add({
-          'email': 'email@gmail.com2',
-          'google_id': 'test2',
-        })
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +22,15 @@ class _HomeScreenState extends State<HomeScreen> {
         stream: _usersStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return const Text('Something went wrong');
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
+            return const Text("Loading");
           }
 
           return Column(
             children: [
-              ElevatedButton(
-                  onPressed: () async {
-                    await addUser();
-                  },
-                  child: Text("Create")),
               SizedBox(
                 height: 500,
                 child: ListView(
