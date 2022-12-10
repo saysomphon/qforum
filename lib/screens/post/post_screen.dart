@@ -9,31 +9,75 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
+  TextEditingController commentController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Feed Back"),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildHeader(),
-              const Padding(
-                padding: EdgeInsets.only(top: 15, bottom: 10, left: 5),
-                child: Text(
-                  'Comments',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        // resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset: true,
+        appBar: AppBar(
+          title: const Text("Feed Back"),
+          centerTitle: true,
+        ),
+        body: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: 62, left: 12.0, right: 12.0, top: 12.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildHeader(),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 15, bottom: 10, left: 5),
+                      child: Text(
+                        'Comments',
+                        style: TextStyle(color: Colors.white, fontSize: 25),
+                      ),
+                    ),
+                    ...List.generate(10, (index) => buildCardComment())
+                  ],
                 ),
               ),
-              ...List.generate(10, (index) => buildCardComment())
-            ],
-          ),
+            ),
+            Positioned(bottom: 0, child: buildTextField())
+          ],
         ),
+      ),
+    );
+  }
+
+  Container buildTextField() {
+    return Container(
+      height: 50,
+      width: MediaQuery.of(context).size.width * 1,
+      color: ColorsConstant.darkPrimaryColor,
+      padding: EdgeInsets.all(8.0),
+      child: TextField(
+        controller: commentController,
+        scrollPadding: EdgeInsets.only(bottom: 40),
+        style: TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+            hintText: "Comment",
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.blue),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: ColorsConstant.textLightGrey),
+            ),
+            hintStyle: TextStyle(color: ColorsConstant.textLightGrey),
+            suffixIcon: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                    onTap: () {},
+                    child: Icon(
+                      Icons.send,
+                      color: Colors.white,
+                    )))),
       ),
     );
   }
@@ -90,7 +134,7 @@ class _PostScreenState extends State<PostScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "ເປັນຫຍັງເງິນເດືອນພະນັກງານຄືໜ້ອຍ?",
+              "ທ່ານມັກກິນຫຍັງ?",
               style: TextStyle(
                   color: ColorsConstant.textYellowColor,
                   fontSize: 20,
