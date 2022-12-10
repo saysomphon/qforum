@@ -1,8 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/firebase_options.dart';
-import 'package:qfoumn/screens/home/home_screen.dart';
-import 'package:qfoumn/screens/post/post_screen.dart';
+import 'package:qfoumn/screens/post_feedback/post_feedback_screen.dart';
 import 'package:qfoumn/theme.dart';
 
 void main() async {

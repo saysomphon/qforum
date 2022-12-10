@@ -25,7 +25,7 @@ class _PostScreenState extends State<PostScreen> {
         body: Stack(
           children: [
             Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                   bottom: 62, left: 12.0, right: 12.0, top: 12.0),
               child: SingleChildScrollView(
                 child: Column(
@@ -56,25 +56,27 @@ class _PostScreenState extends State<PostScreen> {
       height: 50,
       width: MediaQuery.of(context).size.width * 1,
       color: ColorsConstant.darkPrimaryColor,
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: TextField(
         controller: commentController,
-        scrollPadding: EdgeInsets.only(bottom: 40),
-        style: TextStyle(color: Colors.white),
+        scrollPadding: const EdgeInsets.only(bottom: 40),
+        style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
             hintText: "Comment",
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.blue),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: ColorsConstant.textLightGrey),
-            ),
+            border: InputBorder.none,
+            // enabledBorder: const UnderlineInputBorder(
+            //   borderSide: BorderSide(color: Colors.blue),
+            // ),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+            // focusedBorder: UnderlineInputBorder(
+            //   borderSide: BorderSide(color: ColorsConstant.textLightGrey),
+            // ),
             hintStyle: TextStyle(color: ColorsConstant.textLightGrey),
             suffixIcon: MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
                     onTap: () {},
-                    child: Icon(
+                    child: const Icon(
                       Icons.send,
                       color: Colors.white,
                     )))),
@@ -84,7 +86,7 @@ class _PostScreenState extends State<PostScreen> {
 
   Container buildCardComment() {
     return Container(
-      margin: EdgeInsets.only(top: 5, bottom: 5),
+      margin: const EdgeInsets.only(top: 5, bottom: 5),
       width: double.infinity,
       decoration: BoxDecoration(
         color: ColorsConstant.primaryColor,
