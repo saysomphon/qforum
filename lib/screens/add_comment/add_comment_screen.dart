@@ -17,7 +17,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
   String errorMessage = "";
   final commentController = TextEditingController();
   bool loading = false;
-  bool is_anonymous = true;
+  bool isAnonymous = true;
 
   CollectionReference comment =
       FirebaseFirestore.instance.collection('comment');
@@ -43,7 +43,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
     return comment.add({
       'created_at': DateTime.now(),
       'email': 'ting@gmail.com',
-      'is_anonymous': is_anonymous,
+      'is_anonymous': isAnonymous,
       'message': commentController.text,
       'post_id': widget.postId
     }).then((value) {
@@ -75,12 +75,12 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                 Image.asset('assets/images/incognito.png', scale: 1.6),
                 Switch(
                   // This bool value toggles the switch.
-                  value: is_anonymous,
+                  value: isAnonymous,
                   activeColor: Colors.white,
                   onChanged: (bool value) {
                     // This is called when the user toggles the switch.
                     setState(() {
-                      is_anonymous = value;
+                      isAnonymous = value;
                     });
                   },
                 ),
