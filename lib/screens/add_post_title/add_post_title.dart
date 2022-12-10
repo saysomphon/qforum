@@ -1,11 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
 import 'package:qfoumn/controllers/post_title.dart';
-import 'package:qfoumn/controllers/user.dart';
 import 'package:qfoumn/widgets/send_button.dart';
 
 class AddPostTitleScreen extends StatefulWidget {
@@ -21,6 +20,7 @@ class AddPostTitleScreen extends StatefulWidget {
 
 class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
   PostTitleController postTitleController = Get.put(PostTitleController());
+  var getUser = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                Text(
+                const Text(
                   'Content',
                   style: TextStyle(
                       color: Colors.white,
@@ -68,7 +68,7 @@ class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
                 TextField(
                   controller: postTitleController.contentController.value,
                   keyboardType: TextInputType.multiline,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   maxLines: 10,
                   decoration: InputDecoration(
                     hintText: 'Write content here',
@@ -85,7 +85,7 @@ class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
                       tilte: 'Post',
                       press: () => postTitleController.addPostTitle(
                           context: context,
-                          email: 'email@gmail.com',
+                          email: getUser!.email ?? "",
                           forumTypeId: widget.forumId,
                           isAnonymous: false)),
                 ),
@@ -96,7 +96,7 @@ class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
                       alignment: Alignment.centerRight,
                       child: Text(
                         postTitleController.errorMessage.value,
-                        style: TextStyle(color: Colors.red),
+                        style: const TextStyle(color: Colors.red),
                       ),
                     ),
                   ),
