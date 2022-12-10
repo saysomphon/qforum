@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/widgets/expand_text_field.dart';
@@ -12,6 +13,8 @@ class PostComment extends StatefulWidget {
 class _PostCommentState extends State<PostComment> {
   final TextEditingController _controllerTitle = TextEditingController();
   final TextEditingController _controllerContent = TextEditingController();
+  CollectionReference users = FirebaseFirestore.instance.collection('post');
+  DateTime dateTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -75,12 +78,20 @@ class _PostCommentState extends State<PostComment> {
                   Align(
                       alignment: Alignment.centerRight,
                       child: SendButton(
-                        tilte: 'Post',
-                        press: () {
-                          print(_controllerTitle.text);
-                          print(_controllerContent.text);
-                        },
-                      ))
+                          tilte: 'Post',
+                          press: () async {
+                            await users.doc().set(
+                              {
+                                'create_at': dateTime,
+                                'title': _controllerTitle.text,
+                                'description': _controllerContent.text,
+                                'is_anonymous': "",
+                                'user_id': "",
+                                // print(_controllerTitle.text);
+                                // print(_controllerContent.text);
+                              },
+                            );
+                          }))
                 ],
               ),
             ),

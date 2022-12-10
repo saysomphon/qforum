@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [NotificationIconButton()],
+        actions: const [NotificationIconButton()],
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _forumTypeStream,
@@ -34,7 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
           if (snapshot.hasError) {
             return const Text('Something went wrong');
           }
-
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(
@@ -42,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           }
-
           return Padding(
             padding: const EdgeInsets.all(PaddingConstant.scaffoldPadding),
             child: ListView(
