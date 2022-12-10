@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/model/post.dart';
+import 'package:qfoumn/screens/add_post_title/add_post_title.dart';
 import 'package:qfoumn/screens/post_title/widgets/card_post_title.dart';
 
 class PostTitleScreen extends StatefulWidget {
@@ -61,6 +63,18 @@ class _PostTitleScreenState extends State<PostTitleScreen> {
             }).toList(),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddPostTitleScreen(),
+            ),
+          );
+        },
+        backgroundColor: ColorsConstant.primaryColor,
+        child: const Icon(Icons.add),
       ),
     );
   }

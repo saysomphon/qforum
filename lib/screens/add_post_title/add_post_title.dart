@@ -4,16 +4,14 @@ import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
 import 'package:qfoumn/widgets/send_button.dart';
 
-class AddCommentScreen extends StatefulWidget {
-  const AddCommentScreen({super.key, required this.postId});
-
-  final String postId;
+class AddPostTitleScreen extends StatefulWidget {
+  const AddPostTitleScreen({super.key});
 
   @override
-  State<AddCommentScreen> createState() => _AddCommentScreenState();
+  State<AddPostTitleScreen> createState() => _AddPostTitleScreenState();
 }
 
-class _AddCommentScreenState extends State<AddCommentScreen> {
+class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
   String errorMessage = "";
   final commentController = TextEditingController();
   bool loading = false;
@@ -44,7 +42,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
       'email': 'ting@gmail.com',
       'is_anonymous': false,
       'message': commentController.text,
-      'post_id': widget.postId
+      'post_id': ""
     }).then((value) {
       setState(() {
         loading = false;

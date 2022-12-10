@@ -29,81 +29,80 @@ class _PostScreenState extends State<PostScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-          // resizeToAvoidBottomInset: true,
+        // resizeToAvoidBottomInset: true,
 
-          appBar: AppBar(
-            title: Text(widget.forumTitle),
-            centerTitle: true,
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(12),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TitleContainer(
-                    post: widget.post,
+        appBar: AppBar(
+          title: Text(widget.forumTitle),
+          centerTitle: true,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(12),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TitleContainer(
+                  post: widget.post,
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 15, bottom: 10, left: 5),
+                  child: Text(
+                    'Comments',
+                    style: TextStyle(color: Colors.white, fontSize: 25),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 15, bottom: 10, left: 5),
-                    child: Text(
-                      'Comments',
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    ),
-                  ),
-                  StreamBuilder<QuerySnapshot>(
-                    stream: _commentStream,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasError) {
-                        return const Text('Something went wrong');
-                      }
+                ),
+                StreamBuilder<QuerySnapshot>(
+                  stream: _commentStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Something went wrong');
+                    }
 
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
-                        );
-                      }
-
-                      return Column(
-                        children: [
-                          ...snapshot.data!.docs
-                              .map((DocumentSnapshot document) {
-                            Map<String, dynamic> data =
-                                document.data()! as Map<String, dynamic>;
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                              child: CardComment(
-                                  comment: data['message'],
-                                  author: data['email'],
-                                  sentTime: data['created_at'],
-                                  isAnonymous: data['is_anonymous']),
-                            );
-                          }).toList()
-                        ],
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
                       );
-                    },
-                  )
-                ],
-              ),
+                    }
+
+                    return Column(
+                      children: [
+                        ...snapshot.data!.docs.map((DocumentSnapshot document) {
+                          Map<String, dynamic> data =
+                              document.data()! as Map<String, dynamic>;
+                          return Padding(
+                            padding:
+                                const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                            child: CardComment(
+                                comment: data['message'],
+                                author: data['email'],
+                                sentTime: data['created_at'],
+                                isAnonymous: data['is_anonymous']),
+                          );
+                        }).toList()
+                      ],
+                    );
+                  },
+                )
+              ],
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      AddCommentScreen(postId: widget.post.id),
-                ),
-              );
-            },
-            backgroundColor: ColorsConstant.primaryColor,
-            child: const Icon(Icons.add),
-          )),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddCommentScreen(postId: widget.post.id),
+              ),
+            );
+          },
+          backgroundColor: ColorsConstant.primaryColor,
+          child: const Icon(Icons.add),
+        ),
+      ),
     );
   }
 }
