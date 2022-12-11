@@ -1,16 +1,73 @@
-# qfoumn
+# qforum project
 
-A new Flutter project.
+qforum created in flutter version 3.3.9 using getX. clone the appropriate branches mentioned below:
+
+- [qforum project](https://github.com/saysomphon/qforum)
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+qforum created to help new new employee comunicate with team easily with ainonymity
 
-A few resources to get you started if this is your first Flutter project:
+## How to Use 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+**Step 1:**
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Download or clone this repo by using the link below:
+
+```
+https://github.com/saysomphon/qforum
+```
+
+**Step 2:**
+
+Go to project root and execute the following command in console to get the required dependencies: 
+
+```
+flutter pub get 
+```
+
+## qforum Features:
+
+* Google Signin
+* Feedback
+* Share Idea
+* Event
+* Community 
+* Post It
+
+### Libraries & Tools Used
+
+* [firebase_core](https://pub.dev/packages/firebase_core)
+* [firebase_core](https://pub.dev/packages/cloud_firestore)
+* [get](https://pub.dev/packages/get) (State Management)
+* [flutter_svg](https://pub.dev/packages/flutter_svg) 
+* [firebase_auth](https://pub.dev/packages/firebase_auth) 
+* [google_sign_in](https://pub.dev/packages/google_sign_in) 
+* [fluttertoast](https://pub.dev/packages/fluttertoast) 
+
+### Folder Structure
+Here is the core folder structure which flutter provides.
+
+```
+flutter-app/
+|- android
+|- build
+|- ios
+|- lib
+|- test
+```
+
+Here is the folder structure we have been using in this project
+
+```
+lib/
+|- constants/
+|- controllers/
+|- model/
+|- Screens/
+|- utils/
+|- widgets/
+|- firebase_options.dart
+|- main.dart
+|- routes.dart
+```
