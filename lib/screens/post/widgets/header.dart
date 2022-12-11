@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qfoumn/model/post.dart';
+import 'package:qfoumn/widgets/author.dart';
 
 import '../../../constants/colors.dart';
 
@@ -15,7 +16,7 @@ class TitleContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: ColorsConstant.darkPrimaryColor,
         border: Border.all(color: ColorsConstant.borderColor, width: 1),
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(10.0),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -30,21 +31,18 @@ class TitleContainer extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 5),
-            Text(
-              'User: ${post.email}',
-              style: TextStyle(color: ColorsConstant.textLightGrey),
-            ),
+            Author(text: post.isAnonymous ? 'anonymous' : post.email),
             const SizedBox(height: 15),
             Text(
               post.description,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             const SizedBox(height: 10),
             Align(
               alignment: Alignment.bottomRight,
               child: Text(
                 post.createdAt,
-                style: TextStyle(color: ColorsConstant.textLightGrey),
+                style: TextStyle(color: ColorsConstant.textAuthorColor),
               ),
             )
           ],

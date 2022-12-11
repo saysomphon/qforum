@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qfoumn/widgets/author.dart';
 
 import '../../../constants/colors.dart';
 import '../../../utils/date_format.dart';
@@ -24,36 +25,29 @@ class CardComment extends StatelessWidget {
         color: isAnonymous
             ? ColorsConstant.darkPrimaryColor
             : ColorsConstant.primaryColor,
-        border: Border.all(color: ColorsConstant.borderColor, width: 1),
         borderRadius: BorderRadius.circular(5),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(
-            left: 16.0, right: 16.0, top: 16.0, bottom: 8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              comment,
-              style: const TextStyle(color: Colors.white),
-            ),
+            Text(comment,
+                style: TextStyle(
+                    color: ColorsConstant.textColor,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Author(text: isAnonymous ? 'anonymous' : author),
                 Padding(
-                  padding: const EdgeInsets.only(top: 6),
-                  child: Text(isAnonymous ? 'User: Anonymous' : 'User: $author',
-                      style: TextStyle(color: ColorsConstant.textLightGrey)),
-                ),
-                RichText(
-                    text: TextSpan(children: [
-                  TextSpan(
-                    text: DateTimeFormatConvert.convertDateFormat(
-                        datetime: sentTime, format: "dd/MM/yyyy hh:mm"),
-                    style: TextStyle(color: ColorsConstant.textLightGrey),
-                  ),
-                ]))
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(
+                      DateTimeFormatConvert.convertDateFormat(
+                          datetime: sentTime, format: "dd/MM/yyyy hh:mm"),
+                      style: TextStyle(color: ColorsConstant.textAuthorColor)),
+                )
               ],
             )
           ],

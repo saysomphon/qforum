@@ -3,6 +3,7 @@ import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
 import 'package:qfoumn/model/post.dart';
 import 'package:qfoumn/screens/post/post_screen.dart';
+import 'package:qfoumn/widgets/author.dart';
 
 class CardPostTitle extends StatelessWidget {
   const CardPostTitle({super.key, required this.post, required this.forumType});
@@ -37,7 +38,7 @@ class CardPostTitle extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(PaddingConstant.scaffoldPadding),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -55,29 +56,14 @@ class CardPostTitle extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        RichText(
-                          text: TextSpan(children: [
-                            WidgetSpan(
-                                child: Icon(
-                              Icons.person,
-                              color: ColorsConstant.darkPrimaryColor,
-                              size: 25,
-                            )),
-                            TextSpan(
-                                text:
-                                    post.isAnonymous ? 'anonymous' : post.email,
-                                style: TextStyle(
-                                    color: ColorsConstant.darkPrimaryColor))
-                          ]),
-                        ),
-                        RichText(
-                            text: TextSpan(children: [
-                          TextSpan(
-                            text: '${post.createdAt}  ',
-                            style:
-                                TextStyle(color: ColorsConstant.textLightGrey),
-                          ),
-                        ]))
+                        Author(
+                            text: post.isAnonymous ? 'anonymous' : post.email),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text('${post.createdAt}  ',
+                              style: TextStyle(
+                                  color: ColorsConstant.textLightGrey)),
+                        )
                       ],
                     ),
                   ],

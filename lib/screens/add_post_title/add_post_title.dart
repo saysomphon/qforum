@@ -59,7 +59,7 @@ class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
                 ),
                 const SizedBox(height: 15),
                 TextField(
-                  controller: postTitleController.titleController.value,
+                  controller: postTitleController.contentController.value,
                   maxLines: 10,
                   keyboardType: TextInputType.multiline,
                   decoration:

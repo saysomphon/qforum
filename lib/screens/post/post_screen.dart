@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:qfoumn/constants/colors.dart';
-import 'package:qfoumn/controllers/post_forum/post_controller.dart';
 import 'package:qfoumn/model/post.dart';
 import 'package:qfoumn/screens/add_comment/add_comment_screen.dart';
 import 'package:qfoumn/screens/post/widgets/card_comment.dart';
 import 'package:qfoumn/screens/post/widgets/header.dart';
+import 'package:qfoumn/widgets/floating_add_button.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key, required this.post, required this.forumTitle});
@@ -25,6 +24,15 @@ class _PostScreenState extends State<PostScreen> {
         .collection("comment")
         .where("post_id", isEqualTo: widget.post.id)
         .snapshots();
+
+    void goToAddCommentScreen() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AddCommentScreen(postId: widget.post.id),
+        ),
+      );
+    }
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -90,18 +98,8 @@ class _PostScreenState extends State<PostScreen> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AddCommentScreen(postId: widget.post.id),
-              ),
-            );
-          },
-          backgroundColor: ColorsConstant.primaryColor,
-          child: const Icon(Icons.add),
-        ),
+        floatingActionButton:
+            FloatingAddButton(onPressed: goToAddCommentScreen),
       ),
     );
   }
