@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
 import 'package:qfoumn/screens/brainstom_post_it/widgets/note_card.dart';
 import 'package:qfoumn/screens/note_editor/note_editor_screen.dart';
@@ -21,7 +22,7 @@ class _BranstormPostItScreenState extends State<BranstormPostItScreen> {
         FirebaseFirestore.instance.collection("brainstorm_post_it").snapshots();
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(PaddingConstant.scaffoldPadding),
+        padding: const EdgeInsets.all(PaddingConstant.scaffoldPadding),
         child: StreamBuilder<QuerySnapshot>(
           stream: postStream,
           builder:
@@ -35,7 +36,7 @@ class _BranstormPostItScreenState extends State<BranstormPostItScreen> {
             }
 
             return GridView(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
               children: snapshot.data!.docs
@@ -56,8 +57,15 @@ class _BranstormPostItScreenState extends State<BranstormPostItScreen> {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => NoteEditorScreen()));
         },
-        label: Text("Add note"),
-        icon: Icon(Icons.add),
+        backgroundColor: ColorsConstant.darkPrimaryColor,
+        label: const Text(
+          "Add note",
+          style: TextStyle(color: Colors.white),
+        ),
+        icon: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }

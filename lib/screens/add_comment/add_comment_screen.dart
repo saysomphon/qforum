@@ -20,6 +20,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
   bool loading = false;
   bool isAnonymous = false;
   var getUser = FirebaseAuth.instance.currentUser;
+  final _formKey = GlobalKey<FormState>();
 
   CollectionReference comment =
       FirebaseFirestore.instance.collection('comment');
@@ -97,34 +98,49 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
         body: Padding(
           padding: const EdgeInsets.all(PaddingConstant.scaffoldPadding),
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextField(
-                  controller: contentController,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 10,
-                  decoration: const InputDecoration(
-                    hintText: 'Write comment here',
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: SubmitButton(tilte: 'Comment', press: addComment),
-                ),
-                if (errorMessage.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        errorMessage,
-                        style: const TextStyle(color: Colors.red),
-                      ),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter comment';
+                      }
+                      return null;
+                    },
+                    controller: contentController,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 10,
+                    decoration: const InputDecoration(
+                      hintText: 'Write comment here',
                     ),
                   ),
-              ],
+                  const SizedBox(height: 20),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: SubmitButton(
+                        tilte: 'Comment',
+                        press: () {
+                          if (_formKey.currentState!.validate()) {
+                            addComment();
+                          }
+                        }),
+                  ),
+                  if (errorMessage.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          errorMessage,
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
         ),

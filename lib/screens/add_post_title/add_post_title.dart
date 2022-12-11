@@ -20,6 +20,7 @@ class AddPostTitleScreen extends StatefulWidget {
 
 class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
   PostTitleController postTitleController = Get.put(PostTitleController());
+  final _formKey = GlobalKey<FormState>();
   var getUser = FirebaseAuth.instance.currentUser;
   bool isAnonymous = false;
 
@@ -57,61 +58,80 @@ class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
         body: Padding(
           padding: const EdgeInsets.all(PaddingConstant.scaffoldPadding),
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Title',
-                  style: TextStyle(
-                      color: ColorsConstant.textColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 15),
-                TextField(
-                    controller: postTitleController.titleController.value,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Title',
+                    style: TextStyle(
+                        color: ColorsConstant.textColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 15),
+                  TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter Title';
+                        }
+                        return null;
+                      },
+                      controller: postTitleController.titleController.value,
+                      decoration:
+                          const InputDecoration(hintText: "Write title here")),
+                  const SizedBox(height: 15),
+                  Text(
+                    'Content',
+                    style: TextStyle(
+                        color: ColorsConstant.textColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 15),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter Content';
+                      }
+                      return null;
+                    },
+                    controller: postTitleController.contentController.value,
+                    maxLines: 10,
+                    keyboardType: TextInputType.multiline,
                     decoration:
-                        const InputDecoration(hintText: "Write title here")),
-                const SizedBox(height: 15),
-                Text(
-                  'Content',
-                  style: TextStyle(
-                      color: ColorsConstant.textColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 15),
-                TextField(
-                  controller: postTitleController.contentController.value,
-                  maxLines: 10,
-                  keyboardType: TextInputType.multiline,
-                  decoration:
-                      const InputDecoration(hintText: "Write content here"),
-                ),
-                const SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: SubmitButton(
-                      tilte: 'Post',
-                      press: () => postTitleController.addPostTitle(
-                          context: context,
-                          email: getUser!.email ?? "",
-                          forumTypeId: widget.forumId,
-                          isAnonymous: isAnonymous)),
-                ),
-                Obx(
-                  () => Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        postTitleController.errorMessage.value,
-                        style: const TextStyle(color: Colors.red),
+                        const InputDecoration(hintText: "Write content here"),
+                  ),
+                  const SizedBox(height: 20),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: SubmitButton(
+                        tilte: 'Post',
+                        press: () {
+                          if (_formKey.currentState!.validate()) {
+                            postTitleController.addPostTitle(
+                                context: context,
+                                email: getUser!.email ?? "",
+                                forumTypeId: widget.forumId,
+                                isAnonymous: isAnonymous);
+                          }
+                        }),
+                  ),
+                  Obx(
+                    () => Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          postTitleController.errorMessage.value,
+                          style: const TextStyle(color: Colors.red),
+                        ),
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
