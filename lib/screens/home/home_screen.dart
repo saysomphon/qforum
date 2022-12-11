@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
+import 'package:qfoumn/screens/brainstom_post_it/branchstorm_post_it_screen.dart';
 import 'package:qfoumn/screens/home/data/data_forum_type.dart';
 import 'package:qfoumn/screens/home/widgets/card_forum_type.dart';
 import 'package:qfoumn/screens/home/widgets/forum_list.dart';
@@ -35,7 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppbar(),
-      body: _selectedIndex == 0 ? const ForumList() : Container(),
+      body: _selectedIndex == 0
+          ? const ForumList()
+          : const BranstormPostItScreen(),
       bottomNavigationBar: buildNavigationBar(),
     );
   }

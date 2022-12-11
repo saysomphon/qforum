@@ -3,10 +3,14 @@ import 'package:qfoumn/constants/colors.dart';
 
 class FloatingAddButton extends StatelessWidget {
   const FloatingAddButton(
-      {super.key, required this.onPressed, this.icon = Icons.add});
+      {super.key,
+      required this.onPressed,
+      this.icon = Icons.add,
+      this.iconSize = 50});
 
   final void Function() onPressed;
   final IconData icon;
+  final double iconSize;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +20,7 @@ class FloatingAddButton extends StatelessWidget {
       child: Icon(
         icon,
         color: Colors.white,
-        size: 50,
+        size: iconSize,
       ),
     );
   }
