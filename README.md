@@ -1,6 +1,6 @@
-# qfoumn project
+# qforum project
 
-qforum created in flutter versuin 3.3.9 using getX. clone the appropriate branches mentioned below:
+qforum created in flutter version 3.3.9 using getX. clone the appropriate branches mentioned below:
 
 - [qforum project](https://github.com/saysomphon/qforum)
 
@@ -44,3 +44,30 @@ flutter pub get
 * [firebase_auth](https://pub.dev/packages/firebase_auth) 
 * [google_sign_in](https://pub.dev/packages/google_sign_in) 
 * [fluttertoast](https://pub.dev/packages/fluttertoast) 
+
+### Folder Structure
+Here is the core folder structure which flutter provides.
+
+```
+flutter-app/
+|- android
+|- build
+|- ios
+|- lib
+|- test
+```
+
+Here is the folder structure we have been using in this project
+
+```
+lib/
+|- constants/
+|- controllers/
+|- model/
+|- Screens/
+|- utils/
+|- widgets/
+|- firebase_options.dart
+|- main.dart
+|- routes.dart
+```
