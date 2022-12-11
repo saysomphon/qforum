@@ -14,54 +14,75 @@ class NoteEditorScreen extends StatefulWidget {
 class _NoteEditorScreenState extends State<NoteEditorScreen> {
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
+  /// create sticky note for brainstorming post-it
   void addNote() {
-    CollectionReference post =
-        FirebaseFirestore.instance.collection('brainstorm_post_it');
-    post.add({
-      "created_at": DateTime.now().toString(),
-      "content": contentController.value.text,
-      "title": titleController.value.text
-    }).then((value) {
-      titleController.text = '';
-      titleController.text = '';
-      Navigator.pop(context);
-    }).catchError((error) {});
+    if (_formKey.currentState!.validate()) {
+      CollectionReference post =
+          FirebaseFirestore.instance.collection('brainstorm_post_it');
+      post.add({
+        "created_at": DateTime.now().toString(),
+        "content": contentController.value.text,
+        "title": titleController.value.text
+      }).then((value) {
+        titleController.text = '';
+        titleController.text = '';
+        Navigator.pop(context);
+      }).catchError((error) {});
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add New Note"),
+        title: const Text("Add New Note"),
         centerTitle: true,
       ),
       backgroundColor: ColorsConstant.textYellowColor,
       body: Padding(
-        padding: EdgeInsets.all(PaddingConstant.scaffoldPadding),
+        padding: const EdgeInsets.all(PaddingConstant.scaffoldPadding),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              TextField(
-                controller: titleController,
-                decoration: InputDecoration(
-                    hintText: "Note Title",
-                    hintStyle: TextStyle(color: ColorsConstant.textAuthorColor),
-                    border: InputBorder.none,
-                    filled: false),
-              ),
-              const SizedBox(height: 20),
-              TextField(
-                controller: contentController,
-                keyboardType: TextInputType.multiline,
-                maxLines: 10,
-                decoration: InputDecoration(
-                    filled: false,
-                    hintStyle: TextStyle(color: ColorsConstant.textAuthorColor),
-                    border: InputBorder.none,
-                    hintText: "Note content"),
-              ),
-            ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter Note Title';
+                    }
+                    return null;
+                  },
+                  controller: titleController,
+                  decoration: InputDecoration(
+                      hintText: "Note Title",
+                      hintStyle:
+                          TextStyle(color: ColorsConstant.textAuthorColor),
+                      border: InputBorder.none,
+                      filled: false),
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter Note content';
+                    }
+                    return null;
+                  },
+                  controller: contentController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 10,
+                  decoration: InputDecoration(
+                      filled: false,
+                      hintStyle:
+                          TextStyle(color: ColorsConstant.textAuthorColor),
+                      border: InputBorder.none,
+                      hintText: "Note content"),
+                ),
+              ],
+            ),
           ),
         ),
       ),
