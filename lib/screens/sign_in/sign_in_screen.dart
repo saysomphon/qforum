@@ -2,9 +2,9 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:qfoumn/screens/sign_in/auth_method.dart';
 import 'package:qfoumn/screens/home/home_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:qfoumn/utils/auth_method.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});

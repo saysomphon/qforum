@@ -4,8 +4,10 @@ import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/model/post.dart';
 import 'package:qfoumn/screens/add_post_title/add_post_title.dart';
 import 'package:qfoumn/screens/post_title/widgets/card_post_title.dart';
-import 'package:intl/intl.dart';
 import 'package:qfoumn/utils/date_format.dart';
+import 'package:qfoumn/widgets/floating_add_button.dart';
+import 'package:qfoumn/widgets/loading_get_data.dart';
+import 'package:qfoumn/widgets/something_went_wrong.dart';
 
 class PostTitleScreen extends StatefulWidget {
   const PostTitleScreen(
@@ -18,9 +20,21 @@ class PostTitleScreen extends StatefulWidget {
 }
 
 class _PostTitleScreenState extends State<PostTitleScreen> {
+  void gotoAddPostScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddPostTitleScreen(
+          forumId: widget.forumTypeId,
+          forumTitle: widget.title,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _postStream = FirebaseFirestore.instance
+    final Stream<QuerySnapshot> postStream = FirebaseFirestore.instance
         .collection("post")
         .where("forum_type_id", isEqualTo: widget.forumTypeId)
         .snapshots();
@@ -30,59 +44,43 @@ class _PostTitleScreenState extends State<PostTitleScreen> {
         centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: _postStream,
+        stream: postStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return const Text('Something went wrong');
+            return const SomethingWentWrong();
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
-              ),
-            );
+            return const LoadingGetData();
           }
 
-          return ListView(
-            children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              Map<String, dynamic> data =
-                  document.data()! as Map<String, dynamic>;
-              return Padding(
-                padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                child: CardPostTitle(
-                  forumType: widget.title,
-                  post: PostModel(
-                      id: document.id,
-                      createdAt: DateTimeFormatConvert.convertDateFormat(
-                          datetime: data['created_at'],
-                          format: 'dd/MM/yyyy hh:mm'),
-                      description: data['content'],
-                      email: data['email'],
-                      forumTypeId: data['forum_type_id'],
-                      isAnonymous: data['is_anonymous'],
-                      title: data['title']),
-                ),
-              );
-            }).toList(),
-          );
+          return buildListPostCard(snapshot);
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddPostTitleScreen(
-                forumId: widget.forumTypeId,
-                forumTitle: widget.title,
-              ),
-            ),
-          );
-        },
-        backgroundColor: ColorsConstant.primaryColor,
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: FloatingAddButton(onPressed: gotoAddPostScreen),
+    );
+  }
+
+  ListView buildListPostCard(AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
+    return ListView(
+      children: snapshot.data!.docs.map((DocumentSnapshot document) {
+        Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+        return Padding(
+          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+          child: CardPostTitle(
+            forumType: widget.title,
+            post: PostModel(
+                id: document.id,
+                createdAt: DateTimeFormatConvert.convertDateFormat(
+                    datetime: data['created_at'], format: 'dd/MM/yyyy hh:mm'),
+                description: data['content'],
+                email: data['email'],
+                forumTypeId: data['forum_type_id'],
+                isAnonymous: data['is_anonymous'],
+                title: data['title']),
+          ),
+        );
+      }).toList(),
     );
   }
 }
