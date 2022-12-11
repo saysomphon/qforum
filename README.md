@@ -1,6 +1,8 @@
-# qfoumn
+# qfoumn project
 
-A new Flutter project.
+A qforum project created in flutter versuin 3.3.9 using getX. clone the appropriate branches mentioned below:
+
+- [Lab: Write your first Flutter app](https://github.com/saysomphon/qforum)
 
 ## Getting Started
 
