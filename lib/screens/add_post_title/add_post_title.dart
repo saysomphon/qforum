@@ -4,6 +4,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
+import 'package:qfoumn/constants/path.dart';
 import 'package:qfoumn/controllers/post_title.dart';
 import 'package:qfoumn/widgets/submit_button.dart';
 
@@ -36,7 +37,7 @@ class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
             Row(
               children: [
                 Image.asset(
-                  'assets/images/incognito.png',
+                  ImagePath.incognito,
                   scale: 1.6,
                   color: ColorsConstant.darkPrimaryColor,
                 ),

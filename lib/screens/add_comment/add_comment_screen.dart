@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
+import 'package:qfoumn/constants/path.dart';
 import 'package:qfoumn/widgets/submit_button.dart';
 
 class AddCommentScreen extends StatefulWidget {
@@ -76,7 +77,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
             Row(
               children: [
                 Image.asset(
-                  'assets/images/incognito.png',
+                  ImagePath.incognito,
                   scale: 1.6,
                   color: ColorsConstant.darkPrimaryColor,
                 ),

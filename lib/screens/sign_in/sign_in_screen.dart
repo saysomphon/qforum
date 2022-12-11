@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:qfoumn/constants/colors.dart';
+import 'package:qfoumn/constants/path.dart';
 import 'package:qfoumn/screens/home/home_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qfoumn/utils/auth_method.dart';
@@ -31,8 +32,7 @@ class _SignInScreenState extends State<SignInScreen> {
             Container(
               constraints: const BoxConstraints(maxWidth: 250, minWidth: 200),
               child: SvgPicture.asset(
-                'assets/svgs/Frame.svg',
-                semanticsLabel: 'Acme Logo',
+                ImagePath.appLogo,
               ),
             ),
             InkWell(
@@ -97,9 +97,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                 child: CircularProgressIndicator(),
                               )
                             : SvgPicture.asset(
-                                'assets/svgs/Google.svg',
+                                ImagePath.googleLogo,
                                 height: 30,
-                                semanticsLabel: 'Google Logo',
                               ),
                       ),
                       const SizedBox(width: 5),
