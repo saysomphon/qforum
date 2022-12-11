@@ -5,7 +5,7 @@ import 'package:get/instance_manager.dart';
 import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
 import 'package:qfoumn/controllers/post_title.dart';
-import 'package:qfoumn/widgets/send_button.dart';
+import 'package:qfoumn/widgets/submit_button.dart';
 
 class AddPostTitleScreen extends StatefulWidget {
   const AddPostTitleScreen(
@@ -81,7 +81,7 @@ class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
                 const SizedBox(height: 20),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: SendButton(
+                  child: SubmitButton(
                       tilte: 'Post',
                       press: () => postTitleController.addPostTitle(
                           context: context,

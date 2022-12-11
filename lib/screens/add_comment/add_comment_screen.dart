@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
-import 'package:qfoumn/widgets/send_button.dart';
+import 'package:qfoumn/widgets/submit_button.dart';
 
 class AddCommentScreen extends StatefulWidget {
   const AddCommentScreen({super.key, required this.postId});
@@ -112,7 +112,7 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                 const SizedBox(height: 20),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: SendButton(tilte: 'Send', press: addComment),
+                  child: SubmitButton(tilte: 'Send', press: addComment),
                 ),
                 if (errorMessage.isNotEmpty)
                   Padding(

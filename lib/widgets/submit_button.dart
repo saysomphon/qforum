@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:qfoumn/constants/colors.dart';
 
-class SendButton extends StatelessWidget {
+class SubmitButton extends StatelessWidget {
   final String tilte;
   final void Function() press;
-  const SendButton(
+  const SubmitButton(
       {super.key,
       required this.tilte,
       required this.press,
