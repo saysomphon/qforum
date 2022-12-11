@@ -26,21 +26,8 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
   CollectionReference comment =
       FirebaseFirestore.instance.collection('comment');
 
-  bool formValid() {
-    if (contentController.text.isEmpty) {
-      setState(() {
-        errorMessage = "Please enter comment";
-      });
-      return false;
-    }
-    setState(() {
-      errorMessage = "";
-    });
-    return true;
-  }
-
-  Future<void> addComment() {
-    // Call the user's CollectionReference to add a new user
+  /// create comment for a post
+  addComment() {
     setState(() {
       loading = true;
     });
@@ -82,11 +69,9 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                   color: ColorsConstant.darkPrimaryColor,
                 ),
                 Switch(
-                  // This bool value toggles the switch.
                   value: isAnonymous,
                   activeColor: ColorsConstant.darkPrimaryColor,
                   onChanged: (bool value) {
-                    // This is called when the user toggles the switch.
                     setState(() {
                       isAnonymous = value;
                     });

@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   int _selectedIndex = 0;
 
+  /// switch screen from bottom navigation
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;

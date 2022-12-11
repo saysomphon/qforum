@@ -13,6 +13,7 @@ class CardPostTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// go to post detail page to see post and user can comment on that post
     void seePostDetail() {
       Navigator.push(
         context,

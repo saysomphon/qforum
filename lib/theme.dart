@@ -8,7 +8,6 @@ ThemeData theme() {
   return ThemeData(
       scaffoldBackgroundColor: ColorsConstant.backgroundColor,
       primarySwatch: buildMaterialColor(ColorsConstant.primaryColor),
-      textTheme: textTheme(),
       appBarTheme: appBarTheme(),
       inputDecorationTheme: inputDecorationTheme(),
       textSelectionTheme: textSelectionThemeData());
@@ -46,21 +45,6 @@ InputDecorationTheme inputDecorationTheme() {
             BorderSide(width: 1, color: ColorsConstant.darkPrimaryColor),
         borderRadius: BorderRadius.circular(10.0),
       ));
-}
-
-TextTheme textTheme() {
-  return const TextTheme(
-    headlineLarge: TextStyle(fontSize: 34, letterSpacing: 0),
-    headlineMedium: TextStyle(fontSize: 16, letterSpacing: 0),
-    bodySmall: TextStyle(fontSize: 16, letterSpacing: 0),
-    labelSmall: TextStyle(fontSize: 14, letterSpacing: 0),
-    labelMedium:
-        TextStyle(fontSize: 60, letterSpacing: 0, fontWeight: FontWeight.w600),
-    titleLarge:
-        TextStyle(fontSize: 30, letterSpacing: 0, fontWeight: FontWeight.w600),
-    titleSmall:
-        TextStyle(fontSize: 18, letterSpacing: 0, fontWeight: FontWeight.w600),
-  );
 }
 
 // ========================================================================

@@ -18,6 +18,7 @@ class PostTitleScreen extends StatefulWidget {
 }
 
 class _PostTitleScreenState extends State<PostTitleScreen> {
+  /// Go to post screen that will create a post and come back to this screen to see a new post
   void gotoAddPostScreen() {
     Navigator.push(
       context,

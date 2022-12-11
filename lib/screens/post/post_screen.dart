@@ -26,6 +26,7 @@ class _PostScreenState extends State<PostScreen> {
         .where("post_id", isEqualTo: widget.post.id)
         .snapshots();
 
+    /// go to add comment screen to create a comment and come back to post page to see your new comment
     void goToAddCommentScreen() {
       Navigator.push(
         context,
@@ -38,8 +39,6 @@ class _PostScreenState extends State<PostScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        // resizeToAvoidBottomInset: true,
-
         appBar: AppBar(
           title: Text(widget.forumTitle),
           centerTitle: true,

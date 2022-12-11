@@ -21,6 +21,46 @@ class _SignInScreenState extends State<SignInScreen> {
 
   bool isLoading = false;
 
+  /// Sign in by google account
+  void signIn() {
+    setState(() {
+      isLoading = true;
+    });
+    AuthenMethod().signInWithGoogle().then(
+      (value) async {
+        await users.doc(value.user!.uid).set({
+          'email': value.user!.email,
+          'google_id': value.user!.uid,
+        }).then(
+          (getValue) {
+            setState(() {
+              isLoading = false;
+            });
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const HomeScreen(),
+                ),
+                (Route<dynamic> route) => false);
+          },
+        ).catchError(
+          (error) {
+            setState(() {
+              isLoading = false;
+            });
+            showToast(message: e);
+          },
+        );
+      },
+    ).catchError(
+      (error) {
+        setState(() {
+          isLoading = false;
+        });
+        showToast(message: e);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,37 +76,7 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
             ),
             InkWell(
-              onTap: () {
-                setState(() {
-                  isLoading = true;
-                });
-                AuthenMethod().signInWithGoogle().then(
-                  (value) async {
-                    await users.doc(value.user!.uid).set({
-                      'email': value.user!.email,
-                      'google_id': value.user!.uid,
-                    }).then(
-                      (getValue) {
-                        setState(() {
-                          isLoading = false;
-                        });
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) => const HomeScreen(),
-                            ),
-                            (Route<dynamic> route) => false);
-                      },
-                    ).catchError(
-                      (error) {
-                        setState(() {
-                          isLoading = false;
-                        });
-                        showToast(message: e);
-                      },
-                    );
-                  },
-                );
-              },
+              onTap: signIn,
               child: Center(
                 child: Container(
                   width: 200,
