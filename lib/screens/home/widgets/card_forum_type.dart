@@ -34,10 +34,16 @@ class CardForumType extends StatelessWidget {
             const EdgeInsets.only(top: 20, bottom: 20, left: 16, right: 16),
         child: Row(
           children: [
-            Icon(
-              icon,
-              size: 40,
-              color: ColorsConstant.secondaryColor,
+            Container(
+              padding: EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: Icon(
+                icon,
+                size: 40,
+                color: ColorsConstant.secondaryColor,
+              ),
             ),
             const SizedBox(width: 10),
             Text(
