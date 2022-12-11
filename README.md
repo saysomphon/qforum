@@ -1,18 +1,19 @@
 # qfoumn project
 
-A qforum project created in flutter versuin 3.3.9 using getX. clone the appropriate branches mentioned below:
+qforum created in flutter versuin 3.3.9 using getX. clone the appropriate branches mentioned below:
 
-- [Lab: Write your first Flutter app](https://github.com/saysomphon/qforum)
+- [qforum project](https://github.com/saysomphon/qforum)
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+qforum contains the minimal implementation required to create a new library or project. The repository code is preloaded with some basic components like basic app architecture, app theme, constants and required dependencies to create a new project. we can have same patterns in all the projects that will inherit it. This will also help in reducing setup & development time by allowing you to use same code pattern and avoid re-writing from scratch.
 
-A few resources to get you started if this is your first Flutter project:
+## How to Use 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+**Step 1:**
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Download or clone this repo by using the link below:
+
+```
+https://github.com/saysomphon/qforum
+```
