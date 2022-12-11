@@ -71,3 +71,9 @@ lib/
 |- main.dart
 |- routes.dart
 ```
+
+## Conclusion
+
+I will be happy to answer any questions that you may have on this approach, and if you want to lend a hand with the qforum then please feel free to submit an issue and/or pull request 🙂
+
+Again to note, this project can appear as over-architectured for what it is - but it is an example only. If you liked my work, don’t forget to ⭐ star the repo to show your support.
