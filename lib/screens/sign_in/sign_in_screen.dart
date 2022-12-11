@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/screens/home/home_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qfoumn/utils/auth_method.dart';
@@ -22,7 +23,7 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 25, 97, 156),
+      backgroundColor: ColorsConstant.darkPrimaryColor,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
