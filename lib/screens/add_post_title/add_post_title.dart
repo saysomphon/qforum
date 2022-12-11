@@ -21,6 +21,7 @@ class AddPostTitleScreen extends StatefulWidget {
 class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
   PostTitleController postTitleController = Get.put(PostTitleController());
   var getUser = FirebaseAuth.instance.currentUser;
+  bool isAnonymous = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,28 @@ class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
         appBar: AppBar(
           title: Text(widget.forumTitle),
           centerTitle: true,
+          actions: [
+            Row(
+              children: [
+                Image.asset(
+                  'assets/images/incognito.png',
+                  scale: 1.6,
+                  color: ColorsConstant.darkPrimaryColor,
+                ),
+                Switch(
+                  // This bool value toggles the switch.
+                  value: isAnonymous,
+                  activeColor: ColorsConstant.darkPrimaryColor,
+                  onChanged: (bool value) {
+                    // This is called when the user toggles the switch.
+                    setState(() {
+                      isAnonymous = value;
+                    });
+                  },
+                ),
+              ],
+            )
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(PaddingConstant.scaffoldPadding),
@@ -74,7 +97,7 @@ class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
                           context: context,
                           email: getUser!.email ?? "",
                           forumTypeId: widget.forumId,
-                          isAnonymous: false)),
+                          isAnonymous: isAnonymous)),
                 ),
                 Obx(
                   () => Padding(

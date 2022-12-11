@@ -65,20 +65,17 @@ class _PostTitleScreenState extends State<PostTitleScreen> {
     return ListView(
       children: snapshot.data!.docs.map((DocumentSnapshot document) {
         Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-        return Padding(
-          padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-          child: CardPostTitle(
-            forumType: widget.title,
-            post: PostModel(
-                id: document.id,
-                createdAt: DateTimeFormatConvert.convertDateFormat(
-                    datetime: data['created_at'], format: 'dd/MM/yyyy hh:mm'),
-                description: data['content'],
-                email: data['email'],
-                forumTypeId: data['forum_type_id'],
-                isAnonymous: data['is_anonymous'],
-                title: data['title']),
-          ),
+        return CardPostTitle(
+          forumType: widget.title,
+          post: PostModel(
+              id: document.id,
+              createdAt: DateTimeFormatConvert.convertDateFormat(
+                  datetime: data['created_at'], format: 'dd/MM/yyyy hh:mm'),
+              description: data['content'],
+              email: data['email'],
+              forumTypeId: data['forum_type_id'],
+              isAnonymous: data['is_anonymous'],
+              title: data['title']),
         );
       }).toList(),
     );

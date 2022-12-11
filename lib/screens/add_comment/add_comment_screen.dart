@@ -74,11 +74,15 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
           actions: [
             Row(
               children: [
-                Image.asset('assets/images/incognito.png', scale: 1.6),
+                Image.asset(
+                  'assets/images/incognito.png',
+                  scale: 1.6,
+                  color: ColorsConstant.darkPrimaryColor,
+                ),
                 Switch(
                   // This bool value toggles the switch.
                   value: isAnonymous,
-                  activeColor: Colors.white,
+                  activeColor: ColorsConstant.darkPrimaryColor,
                   onChanged: (bool value) {
                     // This is called when the user toggles the switch.
                     setState(() {
@@ -99,20 +103,15 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
                 TextField(
                   controller: contentController,
                   keyboardType: TextInputType.multiline,
-                  style: const TextStyle(color: Colors.white),
                   maxLines: 10,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Write comment here',
-                    hintStyle: TextStyle(color: ColorsConstant.textLightGrey),
-                    border: InputBorder.none,
-                    fillColor: ColorsConstant.darkPrimaryColor,
-                    filled: true,
                   ),
                 ),
                 const SizedBox(height: 20),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: SubmitButton(tilte: 'Send', press: addComment),
+                  child: SubmitButton(tilte: 'Comment', press: addComment),
                 ),
                 if (errorMessage.isNotEmpty)
                   Padding(

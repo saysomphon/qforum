@@ -52,11 +52,12 @@ class _PostScreenState extends State<PostScreen> {
                 TitleContainer(
                   post: widget.post,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 15, bottom: 10, left: 5),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15, bottom: 10, left: 5),
                   child: Text(
                     'Comments',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
+                    style: TextStyle(
+                        color: ColorsConstant.textColor, fontSize: 25),
                   ),
                 ),
                 StreamBuilder<QuerySnapshot>(
@@ -98,8 +99,9 @@ class _PostScreenState extends State<PostScreen> {
             ),
           ),
         ),
-        floatingActionButton:
-            FloatingAddButton(onPressed: goToAddCommentScreen),
+        floatingActionButton: FloatingAddButton(
+          onPressed: goToAddCommentScreen,
+        ),
       ),
     );
   }
