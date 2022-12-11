@@ -8,6 +8,7 @@ class PostTitleController extends GetxController {
   RxString errorMessage = "".obs;
   RxBool loading = false.obs;
 
+  /// create post title to database
   void addPostTitle(
       {required BuildContext context,
       required String email,

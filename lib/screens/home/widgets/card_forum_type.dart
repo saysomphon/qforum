@@ -35,7 +35,7 @@ class CardForumType extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10.0)),

@@ -5,7 +5,7 @@ import 'package:get/instance_manager.dart';
 import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
 import 'package:qfoumn/constants/path.dart';
-import 'package:qfoumn/controllers/post_title.dart';
+import 'package:qfoumn/controller/post_title.dart';
 import 'package:qfoumn/widgets/submit_button.dart';
 
 class AddPostTitleScreen extends StatefulWidget {

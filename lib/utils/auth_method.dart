@@ -16,9 +16,4 @@ class AuthenMethod {
 
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
-
-  // Logout
-  Future<void> logout() async {
-    await FirebaseAuth.instance.signOut();
-  }
 }
