@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
 import 'package:qfoumn/screens/brainstom_post_it/branchstorm_post_it_screen.dart';
@@ -27,9 +28,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void logOut() async {
-    await auth.signOut();
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const SignInScreen()));
+    await auth.signOut().then((value) async {
+      GoogleSignIn().disconnect();
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const SignInScreen()));
+    });
   }
 
   @override
