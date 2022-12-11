@@ -37,46 +37,33 @@ class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Title',
                   style: TextStyle(
-                      color: Colors.white,
+                      color: ColorsConstant.textColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 15),
+                TextField(
+                    controller: postTitleController.titleController.value,
+                    decoration:
+                        const InputDecoration(hintText: "Write title here")),
+                const SizedBox(height: 15),
+                Text(
+                  'Content',
+                  style: TextStyle(
+                      color: ColorsConstant.textColor,
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 15),
                 TextField(
                   controller: postTitleController.titleController.value,
-                  style: const TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    hintText: 'Write title here',
-                    hintStyle: TextStyle(color: ColorsConstant.textLightGrey),
-                    border: InputBorder.none,
-                    fillColor: ColorsConstant.darkPrimaryColor,
-                    filled: true,
-                  ),
-                ),
-                const SizedBox(height: 15),
-                const Text(
-                  'Content',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 15),
-                TextField(
-                  controller: postTitleController.contentController.value,
-                  keyboardType: TextInputType.multiline,
-                  style: const TextStyle(color: Colors.white),
                   maxLines: 10,
-                  decoration: InputDecoration(
-                    hintText: 'Write content here',
-                    hintStyle: TextStyle(color: ColorsConstant.textLightGrey),
-                    border: InputBorder.none,
-                    fillColor: ColorsConstant.darkPrimaryColor,
-                    filled: true,
-                  ),
+                  keyboardType: TextInputType.multiline,
+                  decoration:
+                      const InputDecoration(hintText: "Write content here"),
                 ),
                 const SizedBox(height: 20),
                 Align(
@@ -105,6 +92,22 @@ class _AddPostTitleScreenState extends State<AddPostTitleScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  TextField buildTextFieldContent() {
+    return TextField(
+      controller: postTitleController.contentController.value,
+      keyboardType: TextInputType.multiline,
+      style: TextStyle(color: ColorsConstant.darkPrimaryColor),
+      maxLines: 10,
+      decoration: InputDecoration(
+        hintText: 'Write content here',
+        hintStyle: const TextStyle(color: Colors.white),
+        border: InputBorder.none,
+        fillColor: ColorsConstant.primaryColor,
+        filled: true,
       ),
     );
   }

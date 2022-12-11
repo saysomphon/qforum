@@ -31,7 +31,8 @@ ThemeData theme() {
       scaffoldBackgroundColor: ColorsConstant.backgroundColor,
       primarySwatch: buildMaterialColor(ColorsConstant.primaryColor),
       textTheme: textTheme(),
-      appBarTheme: appBarTheme());
+      appBarTheme: appBarTheme(),
+      inputDecorationTheme: inputDecorationTheme());
 }
 
 AppBarTheme appBarTheme() {
@@ -43,6 +44,23 @@ AppBarTheme appBarTheme() {
     systemOverlayStyle: SystemUiOverlayStyle.light,
     foregroundColor: ColorsConstant.darkPrimaryColor,
   );
+}
+
+InputDecorationTheme inputDecorationTheme() {
+  return InputDecorationTheme(
+      filled: true,
+      fillColor: ColorsConstant.primaryColor,
+      hintStyle: const TextStyle(color: Colors.white),
+      enabledBorder: OutlineInputBorder(
+        borderSide:
+            BorderSide(width: 1, color: ColorsConstant.darkPrimaryColor),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide:
+            BorderSide(width: 1, color: ColorsConstant.darkPrimaryColor),
+        borderRadius: BorderRadius.circular(10.0),
+      ));
 }
 
 TextTheme textTheme() {

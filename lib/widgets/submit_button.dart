@@ -22,7 +22,7 @@ class SubmitButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
           minimumSize: const Size(100, 50),
           backgroundColor:
-              isLoading ? Colors.grey : ColorsConstant.buttonSubmitColor),
+              isLoading ? Colors.grey : ColorsConstant.darkPrimaryColor),
       child: isLoading
           ? const CircularProgressIndicator(
               color: Colors.white,
@@ -30,16 +30,16 @@ class SubmitButton extends StatelessWidget {
           : Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
-                  Icons.send,
-                  color: Colors.white,
-                  size: 16,
-                ),
-                const SizedBox(width: 8),
                 Text(
                   tilte,
                   style: const TextStyle(color: Colors.white, fontSize: 18),
-                )
+                ),
+                const SizedBox(width: 8),
+                const Icon(
+                  Icons.send,
+                  color: Colors.white,
+                  size: 20,
+                ),
               ],
             ),
     );
