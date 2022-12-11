@@ -34,3 +34,13 @@ flutter pub get
 * Event
 * Community 
 * Post It
+
+### Libraries & Tools Used
+
+* [firebase_core](https://pub.dev/packages/firebase_core)
+* [firebase_core](https://pub.dev/packages/cloud_firestore)
+* [get](https://pub.dev/packages/get) (State Management)
+* [flutter_svg](https://pub.dev/packages/flutter_svg) 
+* [firebase_auth](https://pub.dev/packages/firebase_auth) 
+* [google_sign_in](https://pub.dev/packages/google_sign_in) 
+* [fluttertoast](https://pub.dev/packages/fluttertoast) 
