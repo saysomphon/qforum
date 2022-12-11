@@ -44,22 +44,35 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  BottomNavigationBar buildNavigationBar() {
-    return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.lightbulb),
-          label: 'Brainstorming',
-        ),
-      ],
-      currentIndex: _selectedIndex,
-      backgroundColor: ColorsConstant.primaryColor,
-      selectedItemColor: ColorsConstant.secondaryColor,
-      onTap: _onItemTapped,
+  Container buildNavigationBar() {
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 9,
+            blurRadius: 10,
+            offset: const Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      height: 80,
+      child: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.lightbulb),
+            label: 'Brainstorming',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        backgroundColor: ColorsConstant.backgroundColor,
+        selectedItemColor: ColorsConstant.secondaryColor,
+        onTap: _onItemTapped,
+      ),
     );
   }
 
