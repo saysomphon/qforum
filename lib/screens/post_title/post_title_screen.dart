@@ -72,8 +72,7 @@ class _PostTitleScreenState extends State<PostTitleScreen> {
           forumType: widget.title,
           post: PostModel(
               id: data.id,
-              createdAt: DateTimeFormatConvert.convertDateFormat(
-                  datetime: data.createdAt, format: 'dd/MM/yyyy hh:mm'),
+              createdAt: data.createdAt,
               content: data.content,
               email: data.email,
               forumTypeId: data.forumTypeId,

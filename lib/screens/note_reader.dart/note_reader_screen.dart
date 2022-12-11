@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/constants/padding.dart';
+import 'package:qfoumn/model/brainstorm_post_it.dart';
 
 class NoteReaderScreen extends StatefulWidget {
   const NoteReaderScreen({super.key, required this.doc});
@@ -15,6 +16,9 @@ class NoteReaderScreen extends StatefulWidget {
 class _NoteReaderScreenState extends State<NoteReaderScreen> {
   @override
   Widget build(BuildContext context) {
+    Map<String, dynamic> getData = widget.doc.data()! as Map<String, dynamic>;
+    getData['id'] = widget.doc.id;
+    BrainstormPostItModel data = brainstormPostItModelFromJson(getData);
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: ColorsConstant.textYellowColor,
@@ -24,12 +28,12 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.doc["title"],
+              data.title,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             ),
             const SizedBox(height: 20),
             Text(
-              widget.doc["content"],
+              data.content,
               overflow: TextOverflow.ellipsis,
             ),
           ],

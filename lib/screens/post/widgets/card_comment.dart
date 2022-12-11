@@ -7,12 +7,12 @@ import '../../../utils/date_format.dart';
 class CardComment extends StatelessWidget {
   const CardComment(
       {super.key,
-      required this.comment,
-      required this.author,
+      required this.message,
+      required this.email,
       required this.sentTime,
       required this.isAnonymous});
-  final String comment;
-  final String author;
+  final String message;
+  final String email;
   final String sentTime;
   final bool isAnonymous;
 
@@ -32,7 +32,7 @@ class CardComment extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(comment,
+            Text(message,
                 style: TextStyle(
                     color: ColorsConstant.textColor,
                     fontWeight: FontWeight.bold)),
@@ -40,12 +40,10 @@ class CardComment extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Author(text: isAnonymous ? 'anonymous' : author),
+                Author(text: isAnonymous ? 'anonymous' : email),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                      DateTimeFormatConvert.convertDateFormat(
-                          datetime: sentTime, format: "dd/MM/yyyy hh:mm"),
+                  child: Text(sentTime,
                       style: TextStyle(color: ColorsConstant.textAuthorColor)),
                 )
               ],

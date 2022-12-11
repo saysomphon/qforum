@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:qfoumn/utils/date_format.dart';
+
 PostModel postModelFromJson(Map<String, dynamic> json) =>
     PostModel.fromJson(json);
 String postModelToJson(PostModel data) => json.encode(data.toJson());
@@ -24,7 +26,8 @@ class PostModel {
   final String id;
 
   factory PostModel.fromJson(Map<String, dynamic> json) => PostModel(
-      createdAt: json["created_at"] as String,
+      createdAt: DateTimeFormatConvert.convertDateFormat(
+          datetime: json['created_at'], format: 'dd/MM/yyyy hh:mm'),
       content: json["content"] as String,
       email: json["email"] as String,
       forumTypeId: json["forum_type_id"] as String,

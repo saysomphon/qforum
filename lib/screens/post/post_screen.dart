@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:qfoumn/constants/colors.dart';
+import 'package:qfoumn/model/comment.dart';
 import 'package:qfoumn/model/post.dart';
 import 'package:qfoumn/screens/add_comment/add_comment_screen.dart';
 import 'package:qfoumn/screens/post/widgets/card_comment.dart';
@@ -20,7 +21,7 @@ class PostScreen extends StatefulWidget {
 class _PostScreenState extends State<PostScreen> {
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _commentStream = FirebaseFirestore.instance
+    final Stream<QuerySnapshot> commentStream = FirebaseFirestore.instance
         .collection("comment")
         .where("post_id", isEqualTo: widget.post.id)
         .snapshots();
@@ -61,7 +62,7 @@ class _PostScreenState extends State<PostScreen> {
                   ),
                 ),
                 StreamBuilder<QuerySnapshot>(
-                  stream: _commentStream,
+                  stream: commentStream,
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError) {
@@ -79,16 +80,18 @@ class _PostScreenState extends State<PostScreen> {
                     return Column(
                       children: [
                         ...snapshot.data!.docs.map((DocumentSnapshot document) {
-                          Map<String, dynamic> data =
+                          Map<String, dynamic> getData =
                               document.data()! as Map<String, dynamic>;
+                          getData['id'] = document.id;
+                          CommentModel data = commentModelFromJson(getData);
                           return Padding(
                             padding:
                                 const EdgeInsets.only(top: 5.0, bottom: 5.0),
                             child: CardComment(
-                                comment: data['message'],
-                                author: data['email'],
-                                sentTime: data['created_at'],
-                                isAnonymous: data['is_anonymous']),
+                                message: data.message,
+                                email: data.email,
+                                sentTime: data.createdAt,
+                                isAnonymous: data.isAnonymous),
                           );
                         }).toList()
                       ],
