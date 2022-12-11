@@ -25,7 +25,7 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
           children: [
             Text(
               widget.doc["title"],
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             ),
             const SizedBox(height: 20),
             Text(

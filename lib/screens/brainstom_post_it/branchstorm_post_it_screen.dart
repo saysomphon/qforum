@@ -54,8 +54,10 @@ class _BranstormPostItScreenState extends State<BranstormPostItScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => NoteEditorScreen()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const NoteEditorScreen()));
         },
         backgroundColor: ColorsConstant.darkPrimaryColor,
         label: const Text(

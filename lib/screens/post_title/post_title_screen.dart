@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:qfoumn/constants/colors.dart';
 import 'package:qfoumn/model/post.dart';
 import 'package:qfoumn/screens/add_post_title/add_post_title.dart';
 import 'package:qfoumn/screens/post_title/widgets/card_post_title.dart';
@@ -64,18 +65,20 @@ class _PostTitleScreenState extends State<PostTitleScreen> {
   ListView buildListPostCard(AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
     return ListView(
       children: snapshot.data!.docs.map((DocumentSnapshot document) {
-        Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+        Map<String, dynamic> getData = document.data()! as Map<String, dynamic>;
+        getData['id'] = document.id;
+        PostModel data = postModelFromJson(getData);
         return CardPostTitle(
           forumType: widget.title,
           post: PostModel(
-              id: document.id,
+              id: data.id,
               createdAt: DateTimeFormatConvert.convertDateFormat(
-                  datetime: data['created_at'], format: 'dd/MM/yyyy hh:mm'),
-              description: data['content'],
-              email: data['email'],
-              forumTypeId: data['forum_type_id'],
-              isAnonymous: data['is_anonymous'],
-              title: data['title']),
+                  datetime: data.createdAt, format: 'dd/MM/yyyy hh:mm'),
+              content: data.content,
+              email: data.email,
+              forumTypeId: data.forumTypeId,
+              isAnonymous: data.isAnonymous,
+              title: data.title),
         );
       }).toList(),
     );

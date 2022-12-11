@@ -34,7 +34,7 @@ class TitleContainer extends StatelessWidget {
             Author(text: post.isAnonymous ? 'anonymous' : post.email),
             const SizedBox(height: 15),
             Text(
-              post.description,
+              post.content,
               style: const TextStyle(color: Colors.white),
             ),
             const SizedBox(height: 10),
