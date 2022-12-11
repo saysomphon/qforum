@@ -39,24 +39,30 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
       backgroundColor: ColorsConstant.textYellowColor,
       body: Padding(
         padding: EdgeInsets.all(PaddingConstant.scaffoldPadding),
-        child: Column(
-          children: [
-            TextField(
-              controller: titleController,
-              decoration: InputDecoration(
-                hintText: "Note Title",
-                border: InputBorder.none,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextField(
+                controller: titleController,
+                decoration: InputDecoration(
+                    hintText: "Note Title",
+                    hintStyle: TextStyle(color: ColorsConstant.textAuthorColor),
+                    border: InputBorder.none,
+                    filled: false),
               ),
-            ),
-            SizedBox(height: 20),
-            TextField(
-              controller: contentController,
-              keyboardType: TextInputType.multiline,
-              maxLines: 10,
-              decoration: InputDecoration(
-                  border: InputBorder.none, hintText: "Note content"),
-            ),
-          ],
+              const SizedBox(height: 20),
+              TextField(
+                controller: contentController,
+                keyboardType: TextInputType.multiline,
+                maxLines: 10,
+                decoration: InputDecoration(
+                    filled: false,
+                    hintStyle: TextStyle(color: ColorsConstant.textAuthorColor),
+                    border: InputBorder.none,
+                    hintText: "Note content"),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingAddButton(
