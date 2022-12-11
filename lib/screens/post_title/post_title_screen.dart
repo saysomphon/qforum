@@ -35,6 +35,7 @@ class _PostTitleScreenState extends State<PostTitleScreen> {
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> postStream = FirebaseFirestore.instance
         .collection("post")
+        .orderBy("time", descending: true)
         .where("forum_type_id", isEqualTo: widget.forumTypeId)
         .snapshots();
     return Scaffold(

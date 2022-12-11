@@ -24,7 +24,8 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
       post.add({
         "created_at": DateTime.now().toString(),
         "content": contentController.value.text,
-        "title": titleController.value.text
+        "title": titleController.value.text,
+        "time": DateTime.now()
       }).then((value) {
         titleController.text = '';
         titleController.text = '';

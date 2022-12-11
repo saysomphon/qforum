@@ -22,7 +22,8 @@ class PostTitleController extends GetxController {
       "email": email,
       "forum_type_id": forumTypeId,
       "is_anonymous": isAnonymous,
-      "title": titleController.value.text
+      "title": titleController.value.text,
+      "time": DateTime.now()
     }).then((value) {
       loading.value = false;
       contentController.value.text = '';

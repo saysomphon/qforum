@@ -23,6 +23,7 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> commentStream = FirebaseFirestore.instance
         .collection("comment")
+        .orderBy("time", descending: true)
         .where("post_id", isEqualTo: widget.post.id)
         .snapshots();
 

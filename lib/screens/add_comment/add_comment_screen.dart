@@ -36,7 +36,8 @@ class _AddCommentScreenState extends State<AddCommentScreen> {
       'email': getUser!.email ?? "",
       'is_anonymous': isAnonymous,
       'message': contentController.text,
-      'post_id': widget.postId
+      'post_id': widget.postId,
+      "time": DateTime.now()
     }).then((value) {
       setState(() {
         loading = false;

@@ -18,8 +18,10 @@ class BranstormPostItScreen extends StatefulWidget {
 class _BranstormPostItScreenState extends State<BranstormPostItScreen> {
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> postStream =
-        FirebaseFirestore.instance.collection("brainstorm_post_it").snapshots();
+    final Stream<QuerySnapshot> postStream = FirebaseFirestore.instance
+        .collection("brainstorm_post_it")
+        .orderBy("time", descending: true)
+        .snapshots();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(PaddingConstant.scaffoldPadding),
